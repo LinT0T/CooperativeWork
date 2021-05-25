@@ -1,17 +1,21 @@
 package com.greenhand.cooperativework.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.greenhand.cooperativework.R
-import com.greenhand.cooperativework.viewmodel.MainViewModel
+import com.greenhand.cooperativework.base.BaseActivity
+import com.greenhand.cooperativework.viewmodel.activity.MainViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
     private lateinit var mBottomNavigationView: BottomNavigationView
-    private lateinit var mNavHostFragment:NavHostFragment
+    private lateinit var mNavHostFragment: NavHostFragment
+
     private val mViewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
@@ -19,10 +23,29 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        init()
+        initNavigation()
     }
-    private fun init(){
+
+    private fun initNavigation() {
         mBottomNavigationView = findViewById(R.id.nav_bottom_view)
         mNavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_home_fragment) as NavHostFragment
-        mBottomNavigationView.setupWithNavController(mNavHostFragment.navController) }
+        mBottomNavigationView.setupWithNavController(mNavHostFragment.navController)
+    }
+
+    /**
+     * 用来连点两下退出应用
+     */
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (System.currentTimeMillis() - mExitTime > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show()
+                mExitTime = System.currentTimeMillis()
+            }else {
+                finish()
+            }
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+    private var mExitTime: Long = 0
 }
