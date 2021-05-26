@@ -1,7 +1,12 @@
 package com.greenhand.cooperativework.viewmodel.activity
 
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.greenhand.cooperativework.base.BaseApplication
+import com.greenhand.cooperativework.repository.activity.WelcomeRepository
+import kotlinx.coroutines.launch
 
 /**
  *@author 985892345
@@ -17,4 +22,19 @@ class WelcomeViewModel : ViewModel() {
     }
 
     val textColor = MutableLiveData<Int>()
+    val imgUrl = MutableLiveData<String>()
+
+    init {
+        launch {
+            imgUrl.value = WelcomeRepository.getImgUrl()
+        }
+    }
+
+    private fun launch(block: suspend () -> Unit) = viewModelScope.launch {
+        try {
+            block()
+        }catch (e: Throwable) {
+            Toast.makeText(BaseApplication.appContext, e.message, Toast.LENGTH_SHORT).show()
+        }
+    }
 }

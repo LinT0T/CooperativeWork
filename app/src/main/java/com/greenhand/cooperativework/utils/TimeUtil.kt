@@ -1,4 +1,4 @@
-package utils
+package com.greenhand.cooperativework.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -19,7 +19,7 @@ object TimeUtil {
     /**
      * 获取当天日期
      */
-    private fun getNowDate(): String {
+    fun getNowDate(): String {
         return sdf.format(Date())
     }
 
@@ -27,7 +27,7 @@ object TimeUtil {
      * 获取两个日期之间的间隔天数
      * @return 两个日期之间的间隔天数
      */
-    private fun getDiffDate(start: String, end: String): Int {
+    fun getDiffDate(start: String, end: String): Int {
         val startDate = sdf.parse(start)
         val endDate = sdf.parse(end)
         val fromCalendar = Calendar.getInstance()

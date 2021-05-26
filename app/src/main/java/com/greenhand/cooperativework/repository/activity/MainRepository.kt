@@ -6,5 +6,5 @@ package com.greenhand.cooperativework.repository.activity
  *@data 2021/5/25
  *@description
  */
-class MainRepository {
+object MainRepository {
 }

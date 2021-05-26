@@ -2,7 +2,9 @@ package com.greenhand.cooperativework.view.activity
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -24,12 +26,21 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initNavigation()
+        initStatusBar()
     }
 
     private fun initNavigation() {
         mBottomNavigationView = findViewById(R.id.nav_bottom_view)
         mNavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_home_fragment) as NavHostFragment
         mBottomNavigationView.setupWithNavController(mNavHostFragment.navController)
+    }
+
+    private fun initStatusBar() { // 用一个单独的 View 来占状态栏的高度
+        val statusBar = findViewById<View>(R.id.main_statusBar)
+        if (STATUS_BAR_HEIGHT != 0) {
+            val params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, STATUS_BAR_HEIGHT)
+            statusBar.layoutParams = params
+        }
     }
 
     /**
