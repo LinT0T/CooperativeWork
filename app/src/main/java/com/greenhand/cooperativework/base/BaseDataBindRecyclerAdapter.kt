@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 /**
- * 一个联合了 DataBinding 的 RecyclerView.Adapter 的基类
+ * 一个联合了 DataBinding 的 RecyclerView.Adapter 的基类，内部默认实现了一个与 DataBinding 联合的 ViewHolder
  *
  * 普通使用时的方法如下所示：
  *
@@ -53,14 +53,16 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     }
 
     /**
-     * **WARNING：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 [getYourItemViewType] 方法!
+     * **WARNING：** 如果你想加入你的 ViewHolder，请实现 [getYourItemViewType] 方法!
+     *
+     * **WARNING：** 禁止重写该方法，虽可以使用，但建议调用 [getYourItemViewType]
      * @see [getYourItemViewType]
      */
-    @Deprecated("禁止重写该方法，该方法中有一些特殊的实现",
+    @Deprecated("禁止重写该方法",
         ReplaceWith("getYourItemViewType()"))
     override fun getItemViewType(position: Int): Int {
         if (isAddYourViewHolder) {
-            return getYourItemViewType(position) ?: BASE_VIEW_HOLDER
+            return getYourItemViewType(position)
         }
         return BASE_VIEW_HOLDER
     }
@@ -68,18 +70,16 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     /**
      * 用于分配自己的 ViewHolder
      *
-     * **WARNING：** 返回 null 或 [BASE_VIEW_HOLDER] 才可以设置成在  类声明  时传入的  与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
+     * **WARNING：** 返回 [BASE_VIEW_HOLDER] 才可以设置成内部与 DataBinding 联合的 ViewHolder
      *
-     * @return 返回 null 或 [BASE_VIEW_HOLDER] 即可设置成在  类声明  时传入的  与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
+     * @return 返回 [BASE_VIEW_HOLDER] 即可设置成内部与 DataBinding 联合的 ViewHolder
      */
-    open fun getYourItemViewType(position: Int): Int? {
-        return null
+    open fun getYourItemViewType(position: Int): Int {
+        return BASE_VIEW_HOLDER
     }
 
     /**
      * **WARNING：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 [onYourCreateViewHolder] 方法!
-     *
-     * 如果设置自己的 ViewHolder，请使用 [onYourCreateViewHolder]
      * @see [onYourCreateViewHolder]
      */
     @Deprecated("禁止重写该方法，该方法中有一些特殊的实现",
@@ -111,7 +111,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     @Deprecated("禁止重写该方法，该方法中有一些特殊的实现",
         ReplaceWith("onYourBindViewHolder()"))
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-        if (getItemViewType(position) == BASE_VIEW_HOLDER) {
+        if (getYourItemViewType(position) == BASE_VIEW_HOLDER) {
             val baseHolder = holder as BaseDataBindViewHolder
             val binding = baseHolder.binding as DB
             if (payloads.isEmpty()) {
@@ -121,7 +121,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
                 onBaseBindViewHolder(binding, baseHolder, position, payloads)
             }
         }else {
-            onYourBindViewHolder(holder, position, getItemViewType(position))
+            onYourBindViewHolder(holder, position, getYourItemViewType(position))
         }
     }
 
