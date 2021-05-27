@@ -13,17 +13,17 @@ import androidx.recyclerview.widget.RecyclerView
  *
  * 可使用的方法如下所示：
  *
- * [getYourItemViewType]     用于设置自己的 ViewHolder
+ * 1、[getYourItemViewType]     用于分配自己的 ViewHolder
  *
- * [onYourCreateViewHolder]  用于设置自己的 ViewHolder
+ * 2、[onYourCreateViewHolder]  用于设置自己的 ViewHolder
  *
- * [onYourBindViewHolder]    用于设置自己的 ViewHolder
+ * 3、[onYourBindViewHolder]    用于使用自己的 ViewHolder
  *
- * [onBaseBindViewHolder]    用于设置在类声名时传入的 DataBinding
+ * 4、[onBaseBindViewHolder]    用于设置在类声明时传入的 DataBinding
  *
  * 还包括 RecyclerView.Adapter 的其他方法
  *
- * **注意：** 如果你想加入自己的 ViewHolder，请在类声名时传入 [isAddYourViewHolder]
+ * **注意：** 如果你想加入自己的 ViewHolder，请在类声明时传入 [isAddYourViewHolder]
  *
  * @author 985892345
  * @email 2767465918@qq.com
@@ -35,7 +35,13 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
 
     /**
      * 是否添加自己的 ViewHolder，填 true 后请使用
-     * [getYourItemViewType]、[onYourCreateViewHolder]、[onYourBindViewHolder]
+     *
+     * 1、[getYourItemViewType]
+     *
+     * 2、[onYourCreateViewHolder]
+     *
+     * 3、[onYourBindViewHolder]
+     *
      * 设置自己的 ViewHolder
      */
     private val isAddYourViewHolder: Boolean = false
@@ -47,32 +53,30 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     }
 
     /**
-     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 getYourViewType() 方法!
-     *
-     * 如果设置自己的 ViewHolder，请使用 [getYourItemViewType]
+     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 [getYourItemViewType] 方法!
      */
     @Deprecated("禁止重写该方法，该方法中有一些特殊的实现",
         ReplaceWith("getYourItemViewType()"))
     override fun getItemViewType(position: Int): Int {
         if (isAddYourViewHolder) {
-            getYourItemViewType(position) ?: BASE_VIEW_HOLDER
+            return getYourItemViewType(position) ?: BASE_VIEW_HOLDER
         }
         return BASE_VIEW_HOLDER
     }
 
     /**
-     * 用于设置自己的 ViewHolder
+     * 用于分配自己的 ViewHolder
      *
-     * **注意：** 返回 null 或 [BASE_VIEW_HOLDER] 才可以设置成在类声名时传入的与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
+     * **注意：** 返回 null 或 [BASE_VIEW_HOLDER] 才可以设置成在类声明时传入的与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
      *
-     * @return 返回 null 或 [BASE_VIEW_HOLDER] 即可设置成在类声名时传入的与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
+     * @return 返回 null 或 [BASE_VIEW_HOLDER] 即可设置成在类声明时传入的与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
      */
     open fun getYourItemViewType(position: Int): Int? {
         return null
     }
 
     /**
-     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 onYourCreateViewHolder() 方法!
+     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想加入你的 ViewHolder，请实现 [onYourCreateViewHolder] 方法!
      *
      * 如果设置自己的 ViewHolder，请使用 [onYourCreateViewHolder]
      */
@@ -99,9 +103,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     }
 
     /**
-     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想使用你的 ViewHolder，请实现 onYourBindViewHolder() 方法!
-     *
-     * 如果使用自己的 ViewHolder，请使用 [onYourBindViewHolder]
+     * **注意：** 禁止重写该方法，该方法中有一些特殊的实现，如果你想使用自己的 ViewHolder，请实现 [onYourBindViewHolder] 方法!
      */
     @Deprecated("禁止重写该方法，该方法中有一些特殊的实现",
         ReplaceWith("onYourBindViewHolder()"))
@@ -121,33 +123,37 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     }
 
     /**
-     * 用于设置自己的 ViewHolder
+     * 用于使用自己的 ViewHolder
+     *
+     * **注意：** 使用时请根据 [viewType] 强制转换 holder 为你自己的 ViewHolder
+     * @param viewType 来自于 [getYourItemViewType]
      */
     open fun onYourBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, viewType: Int) {
         // nothing
     }
 
     /**
-     * 用于设置在类声名时传入的 DataBinding
+     * 用于设置在类声明时传入的 DataBinding
+     *
+     * 1、其中传入的是类声名时与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
+     *
+     * 2、对 DataBinding 修改值后可以不用调用 dataBinding#executePendingBindings() 刷新，已经内部实现
      *
      * **注意：** 该方法只会在调用相关 notify 方法没有 payload 时才会被调用，如果有 payload，请使用另一个同名方法
-     *
-     * 其中传入的是类声名时与 DataBinding 联合的 ViewHolder ----- [BaseDataBindViewHolder]
-     * 对 DataBinding 修改值后可以不用调用 dataBinding#executePendingBindings() 刷新，已经内部实现
      */
     abstract fun onBaseBindViewHolder(binding: DB, holder: BaseDataBindViewHolder, position: Int)
 
     /**
-     * 用于设置在类声名时传入的 DataBinding
+     * 用于设置在类声明时传入的 DataBinding
      *
-     * **注意：** 该方法只会在调用相关 notify 方法 ***拥有 payload*** 时才会被调用
+     * **注意：** 该方法只会在调用相关 notify 方法 ***拥有 payload*** 的传参时才会被调用
      */
     open fun onBaseBindViewHolder(binding: DB, holder: BaseDataBindViewHolder, position: Int, payloads: MutableList<Any>) {
         // nothing
     }
 
     /**
-     * **注意：** 禁止实现该方法，该方法永远不会被调用，如果你想使用你的 ViewHolder，请实现 onYourBindViewHolder() 方法!
+     * **注意：** 禁止实现该方法，该方法永远不会被调用，如果你想使用你的 ViewHolder，请实现 [onYourBindViewHolder] 方法!
      */
     @Deprecated("该方法永远不会被调用",
         ReplaceWith("onYourBindViewHolder()"))
@@ -157,7 +163,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     }
 
     private fun getBaseBinding(parent: ViewGroup): DB {
-        return DataBindingUtil.inflate<DB>(
+        return DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
             layoutId,
             parent,
