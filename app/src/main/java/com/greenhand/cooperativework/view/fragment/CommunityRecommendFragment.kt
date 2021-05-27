@@ -14,10 +14,6 @@ import com.bumptech.glide.Glide
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.CommunityImageAdapter
 import com.youth.banner.Banner
-import com.youth.banner.BannerConfig
-
-import com.youth.banner.loader.ImageLoader
-import com.youth.banner.Transformer
 
 
 class CommunityRecommendFragment : Fragment() {

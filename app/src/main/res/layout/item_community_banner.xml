@@ -3,6 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <com.greenhand.cooperativework.base.BaseBanner
         android:id="@+id/banner_recommend"
         android:layout_width="match_parent"
@@ -10,4 +11,5 @@
         android:padding="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

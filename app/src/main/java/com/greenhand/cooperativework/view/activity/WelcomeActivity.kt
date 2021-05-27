@@ -34,7 +34,6 @@ class WelcomeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        initStatusBar() // 沉浸式状态栏
         init() // 初始化变量
         initAnimator() // 加载界面动画
     }
@@ -61,7 +60,6 @@ class WelcomeActivity : BaseActivity() {
         animator.addListener(
             onEnd = {
                 thread {
-                    sleep(500)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()

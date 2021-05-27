@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.ViewDataBinding
 
 /**
  *@author 985892345
@@ -47,7 +48,7 @@ abstract class BaseActivity(
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        if (isCancelStatusBar) {
+        if (isCancelStatusBar) { // 沉浸式状态栏
             cancelStatusBar()
         }
     }
@@ -59,8 +60,10 @@ abstract class BaseActivity(
             // 取消状态栏
             window.setDecorFitsSystemWindows(false)
         }else {
-            // 取消状态栏
-            val option = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            // 取消状态栏，已经做了判断使用
+            val option = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
             decorView.systemUiVisibility = option
         }
 

@@ -3,10 +3,10 @@
 
     <item
         android:state_checked="true"
-        android:color="@color/default_light_grey"/>
+        android:color="@color/default_dark_grey"/>
 
     <item
         android:state_checked="false"
-        android:color="@color/default_dark_grey"/>
+        android:color="@color/default_light_grey"/>
 
 </selector>

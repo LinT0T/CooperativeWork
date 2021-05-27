@@ -13,9 +13,9 @@
     <!--下面三个颜色作为整个应用的统一色，希望各位统一一下颜色-->
     <!--这个是系统界面的默认背景颜色-->
     <color name="default_white">#FAFAFA</color>
-    <!--较亮的灰色-->
-    <color name="default_light_grey">#222222</color>
     <!--较暗的灰色-->
-    <color name="default_dark_grey">#8A8A8A</color>
+    <color name="default_dark_grey">#333333</color>
+    <!--较亮的灰色-->
+    <color name="default_light_grey">#9C9C9C</color>
 
 </resources>
