@@ -1,27 +1,25 @@
 package com.greenhand.cooperativework.view.fragment
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.greenhand.cooperativework.R
-import com.greenhand.cooperativework.adapter.CommunityImageAdapter
-import com.youth.banner.Banner
+import com.greenhand.cooperativework.adapter.CommunityRecommendListAdapter
+import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewModel
 
 
 class CommunityRecommendFragment : Fragment() {
-//    private var imagePath: ArrayList<String>? = ArrayList()
-//    private var imageTitle: ArrayList<String>? = ArrayList()
-    private lateinit var mCommunityImageAdapter:CommunityImageAdapter
+    private lateinit var mCommunityRecommendListAdapter:CommunityRecommendListAdapter
     private lateinit var mCommunityImageListView:RecyclerView
     private lateinit var mGridLayoutManager:GridLayoutManager
+    private val mViewModel by lazy {
+        ViewModelProvider(this).get(CommunityRecommendViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,59 +35,44 @@ class CommunityRecommendFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBanner(view)
-        initImageList(view)
-
+        //初始化View
+        initRecommendListView(view)
+        //观察ViewModel数据变化
+        observeData()
+        //开始加载数据
+        startLoadData()
     }
 
-    private fun initImageList(view: View) {
+    private fun initRecommendListView(view: View) {
         mCommunityImageListView=view.findViewById(R.id.rv_image)
-        mCommunityImageAdapter= CommunityImageAdapter()
+        mCommunityRecommendListAdapter= CommunityRecommendListAdapter(R.layout.item_community_image)
         mGridLayoutManager= GridLayoutManager(activity,2)
         mGridLayoutManager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
             override fun getSpanSize(position: Int): Int {
-                when(position){
-                    0->return 2
-                    else->return 1
+                //位置 0 为轮播图 之后一个周期包含 四行(十二张)图片 一行(一个)视频
+                return when(position){
+                    0-> 2
+                    else->{
+                        if(position%13==0){
+                            2
+                        }else{
+                            1
+                        }
+                    }
                 }
             }
 
         }
         mCommunityImageListView.layoutManager=mGridLayoutManager
-        mCommunityImageListView.adapter=mCommunityImageAdapter
+        mCommunityImageListView.adapter=mCommunityRecommendListAdapter
     }
-
-    private fun initBanner(view: View) {
-//        imagePath?.add("http://img.kaiyanapp.com/cf857a6d72e2ab4b7ba6f0ee79f106e0.jpeg?imageMogr2/quality/60/format/jpg")
-//        imagePath?.add("http://img.kaiyanapp.com/3301ea081957934e8916b514ba4aa02a.jpeg?imageMogr2/quality/60/format/jpg")
-//        imagePath?.add("http://img.kaiyanapp.com/cf857a6d72e2ab4b7ba6f0ee79f106e0.jpeg?imageMogr2/quality/60/format/jpg")
-//        imageTitle?.add("1")
-//        imageTitle?.add("2")
-//        imageTitle?.add("3")
-//        banner = view.findViewById(R.id.banner_recommend)
-//        //设置样式
-//        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE)
-//        //设置轮播的动画效果
-//        banner.setBannerAnimation(Transformer.ZoomOutSlide)
-//        //设置图片加载器
-//        banner.setImageLoader(MyImageLoader())
-//        //轮播图片的文字
-//        banner.setBannerTitles(imageTitle)
-//        //设置轮播间隔时间
-//        banner.setDelayTime(3000);
-//        //设置指示器的位置，小点点，居中显示
-//        banner.setIndicatorGravity(BannerConfig.CENTER)
-//        //设置图片加载地址
-//        banner.setImages(imagePath)
-//            //开始调用的方法，启动轮播图。
-//            .start()
+    private fun startLoadData(){
+        mViewModel.loadData("")//第一页nextPageUrl为空
     }
-
-//    private class MyImageLoader : ImageLoader() {
-//        override fun displayImage(context: Context, path: Any?, imageView: ImageView) {
-//            Glide.with(context.applicationContext)
-//                .load(path)
-//                .into(imageView)
-//        }
-//    }
+   private fun observeData(){
+     mViewModel.recommendList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+         //将数据传到adapter中
+         mCommunityRecommendListAdapter.setData(it)
+     })
+   }
 }
