@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--大图的圆角-->
+    <dimen name="default_big_radius">12dp</dimen>
+
+    <!--小图的圆角-->
+    <dimen name="default_small_radius">6dp</dimen>
+
+    <!--community 界面的 left、right 值，为了形成 SlideShow 与底部图片左右边距的统一-->
+    <dimen name="community_parent_left_right">5dp</dimen>
+</resources>

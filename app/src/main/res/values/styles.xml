@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--community 界面大的 ShapeableImageView 控件的圆角-->
+    <style name="shapeImg_community_big_picture_radius">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/default_big_radius</item>
+    </style>
+
+    <!--community 界面小的 ShapeableImageView 控件的圆角-->
+    <style name="shapeImg_community_small_picture_radius">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/default_small_radius</item>
+    </style>
+</resources>

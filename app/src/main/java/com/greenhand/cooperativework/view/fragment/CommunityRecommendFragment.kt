@@ -14,22 +14,17 @@ import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewMo
 
 
 class CommunityRecommendFragment : Fragment() {
-    private lateinit var mCommunityRecommendListAdapter:CommunityRecommendListAdapter
-    private lateinit var mCommunityImageListView:RecyclerView
-    private lateinit var mGridLayoutManager:GridLayoutManager
+    private lateinit var mCommunityRecommendListAdapter: CommunityRecommendListAdapter
+    private lateinit var mCommunityImageListView: RecyclerView
+    private lateinit var mGridLayoutManager: GridLayoutManager
     private val mViewModel by lazy {
         ViewModelProvider(this).get(CommunityRecommendViewModel::class.java)
-    }
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_community_recommend, container, false)
     }
 
@@ -44,35 +39,36 @@ class CommunityRecommendFragment : Fragment() {
     }
 
     private fun initRecommendListView(view: View) {
-        mCommunityImageListView=view.findViewById(R.id.rv_image)
-        mCommunityRecommendListAdapter= CommunityRecommendListAdapter(R.layout.item_community_image)
-        mGridLayoutManager= GridLayoutManager(activity,2)
-        mGridLayoutManager.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
+        mCommunityImageListView = view.findViewById(R.id.rv_image)
+        mCommunityRecommendListAdapter = CommunityRecommendListAdapter(R.layout.item_community_image)
+        mGridLayoutManager = GridLayoutManager(activity, 2)
+        mGridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
                 //位置 0 为轮播图 之后一个周期包含 四行(十二张)图片 一行(一个)视频
-                return when(position){
-                    0-> 2
-                    else->{
-                        if(position%13==0){
+                return when (position) {
+                    0 -> 2
+                    else -> {
+                        if (position % 13 == 0) {
                             2
-                        }else{
+                        } else {
                             1
                         }
                     }
                 }
             }
-
         }
-        mCommunityImageListView.layoutManager=mGridLayoutManager
-        mCommunityImageListView.adapter=mCommunityRecommendListAdapter
+        mCommunityImageListView.layoutManager = mGridLayoutManager
+        mCommunityImageListView.adapter = mCommunityRecommendListAdapter
     }
-    private fun startLoadData(){
+
+    private fun startLoadData() {
         mViewModel.loadData("")//第一页nextPageUrl为空
     }
-   private fun observeData(){
-     mViewModel.recommendList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-         //将数据传到adapter中
-         mCommunityRecommendListAdapter.setData(it)
-     })
-   }
+
+    private fun observeData() {
+        mViewModel.recommendList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            //将数据传到adapter中
+            mCommunityRecommendListAdapter.setData(it)
+        })
+    }
 }

@@ -3,8 +3,9 @@ package com.greenhand.cooperativework.repository.activity
 import android.content.Context.MODE_PRIVATE
 import android.widget.Toast
 import com.greenhand.cooperativework.base.BaseApplication
-import com.greenhand.cooperativework.http.NetWork
+import com.greenhand.cooperativework.http.WelcomeNetWork
 import com.greenhand.cooperativework.utils.TimeUtil
+import com.greenhand.cooperativework.utils.toast
 
 /**
  *@author 985892345
@@ -20,12 +21,12 @@ object WelcomeRepository {
     suspend fun getImgUrl(): String? {
         return if (!isLoadLocalImgUrl()) {
             try {
-                val imgUrlResponse = NetWork.getWelcomeImgUrlResponse()
+                val imgUrlResponse = WelcomeNetWork.getWelcomeImgUrlResponse()
                 val url = imgBaseUrl + imgUrlResponse.images[0].url
                 saveImgUrl(url)
                 url
             }catch (e: Throwable) {
-                Toast.makeText(BaseApplication.appContext, "网络连接失败！将使用本地图片", Toast.LENGTH_SHORT).show()
+                "网络连接失败！将使用本地图片".toast()
                 return getLocalImgUrl()
             }
         }else {
@@ -42,7 +43,7 @@ object WelcomeRepository {
     private fun getLocalImgUrl(): String? {
         val imgUrl = share.getString("img_url", null)
         if (imgUrl == null) {
-            Toast.makeText(BaseApplication.appContext, "本地图片失效 >_<", Toast.LENGTH_SHORT).show()
+            "本地图片失效 >_<".toast()
         }
         return imgUrl
     }

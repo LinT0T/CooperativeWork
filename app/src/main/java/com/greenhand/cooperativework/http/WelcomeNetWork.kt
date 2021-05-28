@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  *@data 2021/5/25
  *@description
  */
-object NetWork {
+object WelcomeNetWork {
     private val retrofitImage = Retrofit.Builder()
         .baseUrl("https://cn.bing.com/")
         .addConverterFactory(GsonConverterFactory.create())

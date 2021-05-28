@@ -7,7 +7,7 @@ import com.greenhand.cooperativework.base.BaseApplication
 import com.greenhand.cooperativework.bean.CommunityFirstRecommendBean
 import com.greenhand.cooperativework.bean.CommunityRecommendBean
 import com.greenhand.cooperativework.repository.fragment.CommunityRecommendRepository
-import com.greenhand.cooperativework.utils.ToastUtil
+import com.greenhand.cooperativework.utils.toast
 import retrofit2.Call
 import retrofit2.Response
 
@@ -36,7 +36,7 @@ class CommunityRecommendViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<CommunityFirstRecommendBean>, t: Throwable) {
-                    ToastUtil.showMsg(BaseApplication.appContext, "网络错误!")
+                    "网络错误!".toast()
                 }
             })
         } else {//不是首次获取推荐
@@ -50,7 +50,7 @@ class CommunityRecommendViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<CommunityRecommendBean>, t: Throwable) {
-                    ToastUtil.showMsg(BaseApplication.appContext, "网络错误!")
+                    "网络错误!".toast()
                 }
             })
         }
@@ -64,8 +64,7 @@ class CommunityRecommendViewModel : ViewModel() {
 
         val result = response.body()
         //总list
-        var allList =
-            result?.itemList
+        var allList = result?.itemList
 
         if (allList != null) {
             for (i in allList.indices) {

@@ -49,6 +49,11 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
+        /**
+         * 用于 [getYourItemViewType]，代表内部与 DataBinding 联合的 ViewHolder 的 viewType 类型
+         *
+         * 具体值为 -2897483，不要故意重复该值
+         */
         const val BASE_VIEW_HOLDER = -2897483 // 防止出现重复值
     }
 

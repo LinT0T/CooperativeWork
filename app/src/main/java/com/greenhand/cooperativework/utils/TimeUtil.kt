@@ -14,7 +14,7 @@ object TimeUtil {
     /**
      * 统一日期格式，如：2021-5-5、2021-5-25
      */
-    private val sdf = SimpleDateFormat("yyyy-M-d")
+    private val sdf = SimpleDateFormat("yyyy-M-d", Locale.CHINA)
 
     /**
      * 获取当天日期
