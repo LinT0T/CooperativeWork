@@ -5,5 +5,10 @@
     <string name="like_count">%d</string>
     <string name="collection_count">%d</string>
     <string name="reply_count">%d</string>
+    <!-- XSH -->
+    <string name="theme">主题</string>
+    <string name = "messages">消息</string>
+    <string name = "interaction">互动</string>
+
 
 </resources>

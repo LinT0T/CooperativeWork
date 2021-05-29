@@ -1,4 +1,4 @@
 package com.greenhand.cooperativework.repository.fragment
 
-class NoticeThemeRepostory {
+class NoticeThemeRepository {
 }

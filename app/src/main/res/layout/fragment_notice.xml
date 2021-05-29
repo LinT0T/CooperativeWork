@@ -3,15 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.fragment.notice.NoticeFragment"
-    android:orientation="vertical"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.fragment.NoticeFragment"
+    android:orientation="vertical">
 
-    <TableLayout
+    <com.google.android.material.tabs.TabLayout
+        app:tabGravity="center"
+        app:tabIndicatorHeight="4dp"
+        app:tabMode="scrollable"
+        app:tabPaddingStart="30dp"
+        app:tabPaddingEnd="30dp"
+        app:tabIndicatorColor="#000000"
+        app:tabSelectedTextColor="#000000"
+        android:id="@+id/notice_fragment_tab_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"/>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/notice_fragment_viewpager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
