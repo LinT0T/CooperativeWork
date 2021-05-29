@@ -72,7 +72,7 @@ data class CommunityRecommendBean(
         val privateMessageActionUrl: Any,
         val reallyCollected: Boolean,
         val recentOnceReply: Any,
-        val releaseTime: Long,
+        var releaseTime: Long,
         val resourceType: String,
         val selectedTime: Any,
         val status: Any,

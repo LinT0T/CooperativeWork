@@ -24,6 +24,13 @@ object TimeUtil {
     }
 
     /**
+     * 根据毫秒获取日期
+     */
+    fun getTime(date: Date): String {
+        return sdf.format(date)
+    }
+
+    /**
      * 获取两个日期之间的间隔天数
      * @return 两个日期之间的间隔天数
      */

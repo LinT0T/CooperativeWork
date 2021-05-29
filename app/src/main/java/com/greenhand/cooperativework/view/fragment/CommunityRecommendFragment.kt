@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.CommunityRecommendListAdapter
 import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewModel
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
 
-class CommunityRecommendFragment : Fragment() {
+class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
     private lateinit var mCommunityRecommendListAdapter: CommunityRecommendListAdapter
     private lateinit var mCommunityImageListView: RecyclerView
+    private lateinit var mSmartRefreshLayout: SmartRefreshLayout
     private lateinit var mGridLayoutManager: GridLayoutManager
     private val mViewModel by lazy {
         ViewModelProvider(this).get(CommunityRecommendViewModel::class.java)
@@ -32,6 +34,8 @@ class CommunityRecommendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //初始化View
         initRecommendListView(view)
+        //向ViewModel中传入this
+        mViewModel.setFragment(this)
         //观察ViewModel数据变化
         observeData()
         //开始加载数据
@@ -40,15 +44,16 @@ class CommunityRecommendFragment : Fragment() {
 
     private fun initRecommendListView(view: View) {
         mCommunityImageListView = view.findViewById(R.id.rv_image)
-        mCommunityRecommendListAdapter = CommunityRecommendListAdapter(R.layout.item_community_image)
+        mCommunityRecommendListAdapter =
+            CommunityRecommendListAdapter(R.layout.item_community_image)
         mGridLayoutManager = GridLayoutManager(activity, 2)
         mGridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                //位置 0 为轮播图 之后一个周期包含 四行(十二张)图片 一行(一个)视频
+                //位置 0 为轮播图 之后一个周期包含 三行(六张)图片+一行(一个)视频+三行(六张)图片+一行(一个)视频
                 return when (position) {
                     0 -> 2
                     else -> {
-                        if (position % 13 == 0) {
+                        if (position % 7 == 0) {
                             2
                         } else {
                             1
@@ -59,6 +64,17 @@ class CommunityRecommendFragment : Fragment() {
         }
         mCommunityImageListView.layoutManager = mGridLayoutManager
         mCommunityImageListView.adapter = mCommunityRecommendListAdapter
+
+        //配置加载
+        mSmartRefreshLayout = view.findViewById(R.id.rl_recommend)
+        //设置加载更多
+        mSmartRefreshLayout.setOnLoadMoreListener {
+            mViewModel.loadData("加载更多")
+        }
+        //设置下拉刷新
+        mSmartRefreshLayout.setOnRefreshListener {
+            startLoadData()
+        }
     }
 
     private fun startLoadData() {
@@ -70,5 +86,13 @@ class CommunityRecommendFragment : Fragment() {
             //将数据传到adapter中
             mCommunityRecommendListAdapter.setData(it)
         })
+    }
+
+    override fun finishRefresh() {
+        mSmartRefreshLayout.finishRefresh()
+    }
+
+    override fun finishLoad() {
+        mSmartRefreshLayout.finishLoadMore()
     }
 }

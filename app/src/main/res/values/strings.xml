@@ -2,5 +2,8 @@
     <string name="app_name">CooperativeWork</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="like_count">%d</string>
+    <string name="collection_count">%d</string>
+    <string name="reply_count">%d</string>
 
 </resources>
