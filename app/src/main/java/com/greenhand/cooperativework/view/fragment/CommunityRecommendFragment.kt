@@ -45,7 +45,7 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
     private fun initRecommendListView(view: View) {
         mCommunityImageListView = view.findViewById(R.id.rv_image)
         mCommunityRecommendListAdapter =
-            CommunityRecommendListAdapter(R.layout.item_community_image)
+            CommunityRecommendListAdapter(R.layout.item_community_image, context)
         mGridLayoutManager = GridLayoutManager(activity, 2)
         mGridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {

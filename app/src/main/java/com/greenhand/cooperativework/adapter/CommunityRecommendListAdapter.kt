@@ -1,5 +1,7 @@
 package com.greenhand.cooperativework.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +13,19 @@ import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.base.BaseDataBindRecyclerAdapter
 import com.greenhand.cooperativework.bean.CommunityFirstRecommendBean
 import com.greenhand.cooperativework.bean.CommunityRecommendBean
+import com.greenhand.cooperativework.bean.CommunityRecommendImageBean
 import com.greenhand.cooperativework.databinding.ItemCommunityImageBinding
 import com.greenhand.cooperativework.databinding.ItemCommunityVideoBinding
 import com.greenhand.cooperativework.utils.TimeUtil
+import com.greenhand.cooperativework.utils.toast
+import com.greenhand.cooperativework.view.activity.ImageDetailsActivity
 import com.ndhzs.slideshow.SlideShow
 import com.ndhzs.slideshow.viewpager2.transformer.ZoomOutPageTransformer
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class CommunityRecommendListAdapter(layoutId: Int) :
+class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
     BaseDataBindRecyclerAdapter<ItemCommunityImageBinding>(layoutId, true) {
 
     companion object {
@@ -41,8 +46,10 @@ class CommunityRecommendListAdapter(layoutId: Int) :
         binding: ItemCommunityImageBinding,
         holder: BaseDataBindViewHolder,
         position: Int
-    ) {     //绑定图片相关数据
+    ) { //绑定图片相关数据
         binding.content = mImageList[position - 1 - position / 7]
+        //绑定点击事件
+        binding.eventHandle = EventHandle(mImageList[position - 1 - position / 7])
     }
 
     override fun getItemCount(): Int {
@@ -69,7 +76,6 @@ class CommunityRecommendListAdapter(layoutId: Int) :
     ): RecyclerView.ViewHolder? {
         when (viewType) {
             ITEM_COMMUNITY_BANNER -> {
-                // 这里没有必要使用 DataBinding
                 val view = LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_community_banner, parent, false)
                 return SlideShowHolder(view)
@@ -160,5 +166,41 @@ class CommunityRecommendListAdapter(layoutId: Int) :
             mVideoList = mContentList[2] as ArrayList<CommunityRecommendBean.Content>
             notifyDataSetChanged()
         }
+    }
+
+    /**
+     * 事件内部类
+     * 通过binding绑定到xml中
+     */
+    inner class EventHandle(val content: CommunityRecommendBean.Content) {
+        //处理单击事件
+        fun onItemSingleClick(view: View) {
+            when (view.id) {
+                R.id.iv_community_image -> {
+                    //跳转至图片Activity
+                    val intent = Intent(context, ImageDetailsActivity::class.java)
+                    //初始化图片Bean类 传入Activity中
+                    intent.putExtra("imageBean", initImageBean(content))
+                    context?.startActivity(intent)
+                }
+                else -> {
+                    "缺少API".toast()
+                }
+            }
+
+        }
+    }
+
+    private fun initImageBean(content: CommunityRecommendBean.Content): CommunityRecommendImageBean {
+        return CommunityRecommendImageBean(
+            content.data.owner.avatar,
+            content.data.owner.nickname,
+            content.data.city,
+            content.data.description,
+            content.data.consumption.collectionCount,
+            content.data.consumption.realCollectionCount,
+            content.data.consumption.replyCount,
+            content.data.urls
+        )
     }
 }
