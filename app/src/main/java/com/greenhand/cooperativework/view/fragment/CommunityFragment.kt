@@ -17,10 +17,6 @@ class CommunityFragment : Fragment() {
     private lateinit var mCommunityFragmentStateAdapter:CommunityFragmentStateAdapter
     private var mFragmentList=ArrayList<Fragment>()
     private val mTabNameList=ArrayList<String>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +35,7 @@ class CommunityFragment : Fragment() {
         mViewPager2 = view.findViewById(R.id.vp_community)
         mFragmentList.add(CommunityRecommendFragment())
         mFragmentList.add(CommunityFollowFragment())
-        mCommunityFragmentStateAdapter = CommunityFragmentStateAdapter(activity, mFragmentList)
+        mCommunityFragmentStateAdapter = CommunityFragmentStateAdapter(requireActivity(), mFragmentList)
         mViewPager2.adapter = mCommunityFragmentStateAdapter
         mTabNameList.add("推荐")
         mTabNameList.add("关注")

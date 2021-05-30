@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -20,6 +21,8 @@ import com.greenhand.cooperativework.utils.TimeUtil
 import com.greenhand.cooperativework.utils.toast
 import com.greenhand.cooperativework.view.activity.ImageDetailsActivity
 import com.ndhzs.slideshow.SlideShow
+import com.ndhzs.slideshow.viewpager2.transformer.AlphaPageTransformer
+import com.ndhzs.slideshow.viewpager2.transformer.ScaleInTransformer
 import com.ndhzs.slideshow.viewpager2.transformer.ZoomOutPageTransformer
 import java.util.*
 import kotlin.collections.ArrayList
@@ -132,9 +135,12 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
             imagePath.add(mSlideShowList[1].data.image)
             imagePath.add(mSlideShowList[2].data.image)
         }
-        slideShow.setTransformer(ZoomOutPageTransformer()) // 设置移动动画
+        slideShow.addTransformer(ScaleInTransformer()) // 设置移动动画
+            .addTransformer(AlphaPageTransformer())
+            .setAutoSlideEnabled(true) // 开启自动滑动
             .setStartItem(1) // 设置起始位置
-            .setDelayTime(5000)
+            .setDelayTime(5000) // 设置自动滚动时间，但目前还没有实现自动滚动
+            .setTimeInterpolator(AccelerateDecelerateInterpolator())
             .setAdapter(imagePath) { data, imageView, holder, position ->
                 Glide.with(imageView)
                     .load(data)

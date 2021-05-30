@@ -81,12 +81,12 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.1'
 
     // 郭祥瑞的库————SlideShow
-    implementation 'com.github.985892345:SlideShow_Library:0.11'
+    implementation 'com.github.985892345:SlideShow_Library:0.23'
 
     // GSYVideoPlayer————视频播放库
     implementation 'com.shuyu:GSYVideoPlayer:7.1.8'
 
-    //SmartRefreshLayout————上拉加载 下拉刷新
+    // SmartRefreshLayout————上拉加载 下拉刷新
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖
     implementation  'com.scwang.smart:refresh-header-classics:2.0.3'    //经典刷新头
     implementation  'com.scwang.smart:refresh-footer-classics:2.0.3'    //经典加载

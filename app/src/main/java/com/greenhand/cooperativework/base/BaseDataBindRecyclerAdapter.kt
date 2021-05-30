@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
  *
  * 还包括 RecyclerView.Adapter 的其他方法
  *
- * **WARNING：** 如果你想加入自己的 ViewHolder，请在类声明时传入 [isAddYourViewHolder]
+ * **NOTICE：** 如果你想加入自己的 ViewHolder，请在类声明时传入 [isAddYourViewHolder]
  *
  * @author 985892345
  * @email 2767465918@qq.com
@@ -75,7 +75,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     /**
      * 用于分配自己的 ViewHolder
      *
-     * **WARNING：** 返回 [BASE_VIEW_HOLDER] 才可以设置成内部与 DataBinding 联合的 ViewHolder
+     * **NOTICE：** 返回 [BASE_VIEW_HOLDER] 才可以设置成内部与 DataBinding 联合的 ViewHolder
      *
      * @return 返回 [BASE_VIEW_HOLDER] 即可设置成内部与 DataBinding 联合的 ViewHolder
      */
@@ -133,7 +133,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     /**
      * 用于使用自己的 ViewHolder
      *
-     * **WARNING：** 使用时请根据 [viewType] 强制转换 holder 为你自己的 ViewHolder
+     * **NOTICE：** 使用时请根据 [viewType] 强制转换 holder 为你自己的 ViewHolder
      * @param viewType 来自于 [getYourItemViewType]
      */
     open fun onYourBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, viewType: Int) {
@@ -154,7 +154,7 @@ abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     /**
      * 用于设置在类声明时传入的 DataBinding
      *
-     * **WARNING：** 该方法只会在调用相关 notify 方法 ***拥有 payload*** 的传参时才会被调用
+     * **NOTICE：** 该方法只会在调用相关 notify 方法 ***拥有 payload*** 的传参时才会被调用
      * @see [onBaseBindViewHolder]
      */
     open fun onBaseBindViewHolder(binding: DB, holder: BaseDataBindViewHolder, position: Int, payloads: MutableList<Any>) {

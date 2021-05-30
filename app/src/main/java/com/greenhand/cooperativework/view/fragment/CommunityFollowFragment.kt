@@ -10,12 +10,6 @@ import com.greenhand.cooperativework.R
 
 class CommunityFollowFragment : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,6 +17,4 @@ class CommunityFollowFragment : Fragment() {
 
         return inflater.inflate(R.layout.fragment_community_follow, container, false)
     }
-
-
 }

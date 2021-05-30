@@ -13,7 +13,6 @@ import com.greenhand.cooperativework.adapter.CommunityRecommendListAdapter
 import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewModel
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
-
 class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
     private lateinit var mCommunityRecommendListAdapter: CommunityRecommendListAdapter
     private lateinit var mCommunityImageListView: RecyclerView

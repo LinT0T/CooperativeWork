@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="content"
             type="com.greenhand.cooperativework.bean.CommunityRecommendBean.Content" />
@@ -28,7 +27,7 @@
                 android:id="@+id/iv_user_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
                 app:imgFromUrl="@{content.data.owner.avatar}"
@@ -41,7 +40,7 @@
                 android:id="@+id/tv_user_name"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -53,7 +52,7 @@
                 android:id="@+id/tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 app:layout_constraintLeft_toRightOf="@id/iv_user_icon"
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
@@ -79,7 +78,8 @@
                 android:background="@mipmap/ic_play"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_icon" />
+                app:layout_constraintTop_toBottomOf="@id/iv_user_icon"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_description"
@@ -100,17 +100,18 @@
                 android:id="@+id/iv_like"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@mipmap/ic_like"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="12dp"
                 android:text="@{@string/like_count(content.data.consumption.collectionCount)}"
                 app:layout_constraintLeft_toRightOf="@id/iv_like"
@@ -120,17 +121,18 @@
                 android:id="@+id/iv_collection"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@mipmap/ic_collection"
                 app:layout_constraintLeft_toRightOf="@id/tv_like_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_collection_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="12dp"
                 android:text="@{@string/collection_count(content.data.consumption.realCollectionCount)}"
                 app:layout_constraintLeft_toRightOf="@id/iv_collection"
@@ -140,22 +142,23 @@
                 android:id="@+id/iv_replay"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@mipmap/ic_reply"
                 app:layout_constraintLeft_toRightOf="@id/tv_collection_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/tv_replay_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp"
                 android:layout_marginTop="12dp"
                 android:text="@{@string/reply_count(content.data.consumption.replyCount)}"
                 app:layout_constraintLeft_toRightOf="@id/iv_replay"
                 app:layout_constraintTop_toBottomOf="@id/tv_description" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
