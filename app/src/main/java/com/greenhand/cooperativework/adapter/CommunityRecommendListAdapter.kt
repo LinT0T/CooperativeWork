@@ -2,6 +2,7 @@ package com.greenhand.cooperativework.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +16,16 @@ import com.greenhand.cooperativework.base.BaseDataBindRecyclerAdapter
 import com.greenhand.cooperativework.bean.CommunityFirstRecommendBean
 import com.greenhand.cooperativework.bean.CommunityRecommendBean
 import com.greenhand.cooperativework.bean.CommunityRecommendImageBean
+import com.greenhand.cooperativework.bean.VideoDetailsBean
 import com.greenhand.cooperativework.databinding.ItemCommunityImageBinding
 import com.greenhand.cooperativework.databinding.ItemCommunityVideoBinding
 import com.greenhand.cooperativework.utils.TimeUtil
 import com.greenhand.cooperativework.utils.toast
 import com.greenhand.cooperativework.view.activity.ImageDetailsActivity
+import com.greenhand.cooperativework.view.activity.VideoDetailsActivity
 import com.ndhzs.slideshow.SlideShow
 import com.ndhzs.slideshow.viewpager2.transformer.AlphaPageTransformer
 import com.ndhzs.slideshow.viewpager2.transformer.ScaleInTransformer
-import com.ndhzs.slideshow.viewpager2.transformer.ZoomOutPageTransformer
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -93,7 +95,7 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
                 return VideoHolder(itemBinding.root, itemBinding)
             }
             else -> {
-                TODO()
+                return null
             }
         }
     }
@@ -139,8 +141,8 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
             .addTransformer(AlphaPageTransformer())
             .setAutoSlideEnabled(true) // 开启自动滑动
             .setStartItem(1) // 设置起始位置
-            .setDelayTime(5000) // 设置自动滚动时间
-            .setTimeInterpolator(AccelerateDecelerateInterpolator()) // 设置插值器
+            .setDelayTime(5000) // 设置自动滚动时间，但目前还没有实现自动滚动
+            .setTimeInterpolator(AccelerateDecelerateInterpolator())
             .setAdapter(imagePath) { data, imageView, holder, position ->
                 Glide.with(imageView)
                     .load(data)
@@ -153,6 +155,7 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
      */
     private fun initVideoData(videoHolder: VideoHolder, position: Int) {
         videoHolder.binding.content = mVideoList[position / 7 - 1]
+        videoHolder.binding.eventHandle = EventHandle(mVideoList[position / 7 - 1])
         // 单独处理视频发布时间
         val data = Date()
         data.time = mVideoList[position / 7 - 1].data.releaseTime
@@ -182,11 +185,18 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
         //处理单击事件
         fun onItemSingleClick(view: View) {
             when (view.id) {
-                R.id.iv_community_image -> {
+                R.id.iv_community_image, R.id.tv_image_description -> {
                     //跳转至图片Activity
                     val intent = Intent(context, ImageDetailsActivity::class.java)
                     //初始化图片Bean类 传入Activity中
                     intent.putExtra("imageBean", initImageBean(content))
+                    context?.startActivity(intent)
+                }
+                R.id.iv_community_video_image, R.id.tv_video_description -> {
+                    //跳转至视频Activity
+                    val intent = Intent(context, VideoDetailsActivity::class.java)
+                    //初始化视频Bean类 传入Activity中
+                    intent.putExtra("videoBean", initVideoBean(content))
                     context?.startActivity(intent)
                 }
                 else -> {
@@ -195,6 +205,22 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
             }
 
         }
+    }
+
+    private fun initVideoBean(content: CommunityRecommendBean.Content): VideoDetailsBean {
+        Log.d("zzz",content.data.id.toString())
+        return VideoDetailsBean(
+            content.data.title,
+            content.data.playUrl,
+            content.data.id.toString(),
+            content.data.description,
+            content.data.consumption.collectionCount,
+            content.data.consumption.realCollectionCount,
+            content.data.consumption.replyCount,
+            content.data.owner.avatar,
+            content.data.owner.nickname,
+            content.data.owner.description.toString()
+        )
     }
 
     private fun initImageBean(content: CommunityRecommendBean.Content): CommunityRecommendImageBean {

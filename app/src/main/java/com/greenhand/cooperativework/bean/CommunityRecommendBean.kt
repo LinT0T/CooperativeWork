@@ -114,7 +114,7 @@ data class CommunityRecommendBean(
         val city: Any,
         val country: Any,
         val cover: Any,
-        val description: Any,
+        val description: Any?,
         val expert: Boolean,
         val followed: Boolean,
         val gender: Any,

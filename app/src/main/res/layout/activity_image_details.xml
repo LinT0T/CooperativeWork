@@ -48,7 +48,7 @@
                 android:id="@+id/iv_user_icon"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 android:scaleType="centerCrop"
@@ -62,7 +62,7 @@
                 android:id="@+id/tv_user_name"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
@@ -76,7 +76,7 @@
                 android:id="@+id/tv_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:text="@{imageBean.releaseCity}"
                 android:textColor="@color/default_white"
                 android:textSize="14sp"
@@ -88,7 +88,7 @@
                 android:id="@+id/btn_private_letter"
                 android:layout_width="48dp"
                 android:layout_height="22dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/button_circle_shape"
                 android:backgroundTint="#4990e3"
                 android:onClick="@{eventHandle::onItemSingleClick}"
@@ -96,14 +96,13 @@
                 android:textColor="@color/default_white"
                 android:textSize="12sp"
                 app:layout_constraintRight_toLeftOf="@+id/btn_follow"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/btn_follow"
                 android:layout_width="48dp"
                 android:layout_height="22dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@drawable/button_circle_shape"
                 android:backgroundTint="@color/default_white"
                 android:onClick="@{eventHandle::onItemSingleClick}"
@@ -111,14 +110,13 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="HardcodedText" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_description"
+                android:id="@+id/tv_video_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:ellipsize="end"
                 android:paddingBottom="15dp"
@@ -135,14 +133,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#CDCDCD"
-                app:layout_constraintTop_toBottomOf="@id/tv_description"
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description"
                 tools:ignore="PxUsage" />
 
             <ImageView
                 android:id="@+id/iv_like"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/ic_like"
@@ -150,27 +148,26 @@
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
 
             <TextView
                 android:id="@+id/tv_like_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="@{@string/like_count(imageBean.likeCount)}"
                 android:textColor="@color/default_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_like"
-                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
 
             <ImageView
                 android:id="@+id/iv_collection"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/ic_collection"
@@ -178,27 +175,26 @@
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/tv_like_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
 
             <TextView
                 android:id="@+id/tv_collection_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="@{@string/collection_count(imageBean.collectionCount)}"
                 android:textColor="@color/default_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_collection"
-                app:layout_constraintTop_toBottomOf="@id/tv_description" />
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
 
             <ImageView
                 android:id="@+id/iv_replay"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@mipmap/ic_reply"
@@ -206,22 +202,20 @@
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/tv_collection_count"
-                app:layout_constraintTop_toBottomOf="@+id/tv_description"
-                tools:ignore="ContentDescription" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
 
             <TextView
                 android:id="@+id/tv_replay_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:text="@{@string/reply_count(imageBean.replyCount)}"
                 android:textColor="@color/default_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_replay"
-                app:layout_constraintTop_toBottomOf="@id/tv_description" />
-
+                app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

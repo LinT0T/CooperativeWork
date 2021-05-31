@@ -32,7 +32,7 @@ class ImageDetailsActivity : AppCompatActivity(), View.OnTouchListener, ImageFra
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //创建Binding 并绑定数据
-        createBinding(layoutInflater)
+        createBinding()
         //初始化相关view
         initView()
     }
@@ -69,7 +69,7 @@ class ImageDetailsActivity : AppCompatActivity(), View.OnTouchListener, ImageFra
         mImagePage.adapter = mCommunityFragmentStateAdapter
     }
 
-    private fun createBinding(layoutInflater: LayoutInflater) {
+    private fun createBinding() {
         mItemBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_details)
         mItemBinding.imageBean = getImageBean()
         mItemBinding.eventHandle = EventHandle()

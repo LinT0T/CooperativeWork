@@ -17,7 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CooperativeWork"
         tools:targetApi="n">
-        <activity android:name=".view.activity.ImageDetailsActivity"></activity>
+        <activity
+            android:name=".view.activity.VideoDetailsActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".view.activity.ImageDetailsActivity" />
         <activity android:name=".view.activity.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.activity.MainActivity"></activity>
+        <activity android:name=".view.activity.MainActivity" />
     </application>
 
 </manifest>
