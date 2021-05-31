@@ -5,24 +5,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.base.BaseDataBindRecyclerAdapter
 import com.greenhand.cooperativework.bean.NoticeMessageBean
-import com.greenhand.cooperativework.bean.NoticeMessageFragmentBean
 import com.greenhand.cooperativework.databinding.ItemNoticeMessageBinding
 import java.util.zip.Inflater
 
 class NoticeMessageListAdapter(layoutId: Int) : BaseDataBindRecyclerAdapter<ItemNoticeMessageBinding>(layoutId) {
-    private var mMessageBeanList=ArrayList<NoticeMessageFragmentBean>()
+    private var mMessageBeanList=ArrayList<NoticeMessageBean>()
 
     override fun onBaseBindViewHolder(
         binding: ItemNoticeMessageBinding,
         holder: BaseDataBindViewHolder,
         position: Int
     ) {
-        binding.message = mMessageBeanList[position]
+
     }
 
     override fun getItemCount(): Int {
@@ -55,7 +53,7 @@ class NoticeMessageListAdapter(layoutId: Int) : BaseDataBindRecyclerAdapter<Item
         val iconIv: ImageView = itemView.findViewById(R.id.message_icon_img_view)
     }
 
-    fun setData(messageBeanList:ArrayList<NoticeMessageFragmentBean>){
+    fun setData(messageBeanList:ArrayList<NoticeMessageBean>){
         mMessageBeanList = messageBeanList
     }
 
