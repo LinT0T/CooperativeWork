@@ -93,7 +93,7 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
                 return VideoHolder(itemBinding.root, itemBinding)
             }
             else -> {
-                return null
+                TODO()
             }
         }
     }
@@ -139,8 +139,8 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
             .addTransformer(AlphaPageTransformer())
             .setAutoSlideEnabled(true) // 开启自动滑动
             .setStartItem(1) // 设置起始位置
-            .setDelayTime(5000) // 设置自动滚动时间，但目前还没有实现自动滚动
-            .setTimeInterpolator(AccelerateDecelerateInterpolator())
+            .setDelayTime(5000) // 设置自动滚动时间
+            .setTimeInterpolator(AccelerateDecelerateInterpolator()) // 设置插值器
             .setAdapter(imagePath) { data, imageView, holder, position ->
                 Glide.with(imageView)
                     .load(data)

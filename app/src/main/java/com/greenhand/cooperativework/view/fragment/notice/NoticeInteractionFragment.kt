@@ -1,4 +1,4 @@
-package com.greenhand.cooperativework.view.fragment
+package com.greenhand.cooperativework.view.fragment.notice
 
 import androidx.fragment.app.Fragment
 

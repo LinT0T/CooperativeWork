@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/indexFragment"
-        android:name="com.greenhand.cooperativework.view.fragment.IndexFragment"
+        android:name="com.greenhand.cooperativework.view.fragment.index.IndexFragment"
         android:label="fragment_index"
         tools:layout="@layout/fragment_index" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/communityFragment"
-        android:name="com.greenhand.cooperativework.view.fragment.CommunityFragment"
+        android:name="com.greenhand.cooperativework.view.fragment.community.CommunityFragment"
         android:label="fragment_community"
         tools:layout="@layout/fragment_community" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/noticeFragment"
-        android:name="com.greenhand.cooperativework.view.fragment.NoticeFragment"
+        android:name="com.greenhand.cooperativework.view.fragment.notice.NoticeFragment"
         android:label="fragment_notice"
         tools:layout="@layout/fragment_notice" />
 

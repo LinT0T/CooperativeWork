@@ -2,6 +2,7 @@ package com.greenhand.cooperativework.view.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,6 +37,7 @@ class ImageDetailsActivity : AppCompatActivity(), View.OnTouchListener, ImageFra
         initView()
     }
 
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     private fun initView() {
         mImageDetailsLayout = findViewById(R.id.layout_image_detailed)
         mImagePage = findViewById(R.id.vp_image)
@@ -85,6 +87,7 @@ class ImageDetailsActivity : AppCompatActivity(), View.OnTouchListener, ImageFra
      * 设置图片详细layout的onTouch方法 全部return true
      * 使在该layout中滑动不会影响到viewPage的滑动
      */
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         return true
     }

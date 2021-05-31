@@ -1,4 +1,4 @@
-package com.greenhand.cooperativework.view.fragment
+package com.greenhand.cooperativework.view.fragment.community
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.CommunityRecommendListAdapter
+import com.greenhand.cooperativework.view.fragment.RefreshAndLoad
 import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewModel
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 

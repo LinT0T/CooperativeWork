@@ -6,7 +6,7 @@ import com.greenhand.cooperativework.bean.CommunityFirstRecommendBean
 import com.greenhand.cooperativework.bean.CommunityRecommendBean
 import com.greenhand.cooperativework.repository.fragment.CommunityRecommendRepository
 import com.greenhand.cooperativework.utils.toast
-import com.greenhand.cooperativework.view.fragment.CommunityRecommendFragment
+import com.greenhand.cooperativework.view.fragment.community.CommunityRecommendFragment
 import retrofit2.Call
 import retrofit2.Response
 

@@ -1,4 +1,4 @@
-package com.greenhand.cooperativework.view.fragment
+package com.greenhand.cooperativework.view.fragment.community
 
 import android.os.Bundle
 import android.view.LayoutInflater
