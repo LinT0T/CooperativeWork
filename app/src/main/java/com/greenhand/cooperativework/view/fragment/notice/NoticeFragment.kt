@@ -10,10 +10,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.NoticeFragmentAdapter
-import com.greenhand.cooperativework.view.fragment.notice.NoticeInteractionFragment
-import com.greenhand.cooperativework.view.fragment.notice.NoticeMessageFragment
-import com.greenhand.cooperativework.view.fragment.notice.NoticeThemeFragment
-
 
 class NoticeFragment : Fragment() {
     private var fragmentList=ArrayList<Fragment>()
