@@ -6,12 +6,17 @@
         <variable
             name="message"
             type="com.greenhand.cooperativework.bean.NoticeMessageBean" />
+        <variable
+            name="eventHandle"
+            type="com.greenhand.cooperativework.bean.NoticeMessageBean.EventHandle" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
+
+        android:id="@+id/message_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/default_white"
@@ -33,11 +38,12 @@
             android:layout_height="match_parent"
             tools:ignore="ExtraText">
 
+            <!--API中的图片全都失效了，所以只好找本地图片-->
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/message_icon_img_view"
-                imgFromUrl="@{message.icon}"
+                android:src="@mipmap/ic_reply"
                 android:layout_width="48dp"
-
+                app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
 
@@ -68,6 +74,7 @@
                 app:layout_constraintTop_toBottomOf="@id/message_title_tv" />
 
             <TextView
+                android:onClick="@{eventHandle::onItemSingleClick}"
                 android:id="@+id/message_content_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
