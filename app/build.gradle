@@ -87,7 +87,17 @@ dependencies {
     implementation 'com.shuyu:GSYVideoPlayer:7.1.8'
 
     //文字加载动画
-    implementation 'hanks.xyz:htextview-library:0.1.2'
+    def htextview_version = "0.1.6"
+    implementation "com.hanks:htextview-base:$htextview_version"        // base library
+
+    implementation "com.hanks:htextview-fade:$htextview_version"        // optional
+    implementation "com.hanks:htextview-line:$htextview_version"        // optional
+    implementation "com.hanks:htextview-rainbow:$htextview_version"     // optional
+    implementation "com.hanks:htextview-typer:$htextview_version"       // optional
+
+    implementation "com.hanks:htextview-scale:$htextview_version"       // optional
+    implementation "com.hanks:htextview-evaporate:$htextview_version"   // optional
+    implementation "com.hanks:htextview-fall:$htextview_version"        // optional
 
     // SmartRefreshLayout————上拉加载 下拉刷新
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3'      //核心必须依赖

@@ -1,161 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.hanks.htextview.HTextView
-        android:id="@+id/tv_video_title"
+    <data>
+
+        <variable
+            name="data"
+            type="com.greenhand.cooperativework.bean.VideoDetailsBean" />
+
+        <variable
+            name="eventHandle"
+            type="com.greenhand.cooperativework.view.activity.VideoDetailsActivity.EventHandle" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="15dp"
-        android:maxLines="1"
-        android:textColor="@color/default_white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_user_icon"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:onClick="@{eventHandle::onItemSingleClick}"
-        android:scaleType="centerCrop"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_title"
-        app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
-        tools:ignore="ContentDescription" />
+        <TextView
+            android:id="@+id/tv_video_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:text="@{data.videoTitle}"
+            android:textColor="@color/default_white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_user_name"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textColor="@color/default_white"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/iv_user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_user_icon"
+            imgFromUrl="@{data.authorIcon}"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:onClick="@{eventHandle::onItemSingleClick}"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_title"
+            app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
+            tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/tv_user_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:maxLines="1"
-        android:textColor="@color/default_white"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@id/iv_user_icon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{data.authorName}"
+            android:textColor="@color/default_white"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/iv_user_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
 
-    <Button
-        android:id="@+id/btn_private_letter"
-        android:layout_width="48dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/button_circle_shape"
-        android:backgroundTint="#4990e3"
-        android:onClick="@{eventHandle::onItemSingleClick}"
-        android:text="私信"
-        android:textColor="@color/default_white"
-        android:textSize="12sp"
-        app:layout_constraintRight_toLeftOf="@+id/btn_follow"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
+        <TextView
+            android:id="@+id/tv_user_description"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="1"
+            android:text="@{data.authorDescription}"
+            android:textColor="@color/default_white"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@id/iv_user_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
 
-    <Button
-        android:id="@+id/btn_follow"
-        android:layout_width="48dp"
-        android:layout_height="22dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="@drawable/button_circle_shape"
-        android:backgroundTint="@color/default_white"
-        android:onClick="@{eventHandle::onItemSingleClick}"
-        android:text="+关注"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
+        <Button
+            android:id="@+id/btn_private_letter"
+            android:layout_width="48dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_circle_shape"
+            android:backgroundTint="#4990e3"
+            android:onClick="@{eventHandle::onItemSingleClick}"
+            android:text="私信"
+            android:textColor="@color/default_white"
+            android:textSize="12sp"
+            app:layout_constraintRight_toLeftOf="@+id/btn_follow"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
 
-    <com.hanks.htextview.HTextView
-        android:id="@+id/tv_video_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:ellipsize="end"
-        android:paddingBottom="15dp"
-        android:textColor="@color/default_white"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_user_icon" />
+        <Button
+            android:id="@+id/btn_follow"
+            android:layout_width="48dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_circle_shape"
+            android:backgroundTint="@color/default_white"
+            android:onClick="@{eventHandle::onItemSingleClick}"
+            android:text="+关注"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_title" />
 
-    <ImageView
-        android:id="@+id/iv_like"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@mipmap/ic_like"
-        android:backgroundTint="@color/default_white"
-        android:onClick="@{eventHandle::onItemSingleClick}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
+        <com.hanks.htextview.typer.TyperTextView
+            android:id="@+id/tv_video_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:paddingBottom="15dp"
+            android:textColor="@color/default_white"
+            android:textSize="13sp"
+            app:charIncrease="3"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_user_icon"
+            app:typerSpeed="30" />
 
-    <TextView
-        android:id="@+id/tv_like_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:textColor="@color/default_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_like"
-        app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+        <ImageView
+            android:id="@+id/iv_like"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@mipmap/ic_like"
+            android:backgroundTint="@color/default_white"
+            android:onClick="@{eventHandle::onItemSingleClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
 
-    <ImageView
-        android:id="@+id/iv_collection"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@mipmap/ic_collection"
-        android:backgroundTint="@color/default_white"
-        android:onClick="@{eventHandle::onItemSingleClick}"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/tv_like_count"
-        app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
+        <TextView
+            android:id="@+id/tv_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@{@string/like_count(data.likeCount)}"
+            android:textColor="@color/default_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_like"
+            app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
 
-    <TextView
-        android:id="@+id/tv_collection_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:textColor="@color/default_white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/iv_collection"
-        app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+        <ImageView
+            android:id="@+id/iv_collection"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@mipmap/ic_collection"
+            android:backgroundTint="@color/default_white"
+            android:onClick="@{eventHandle::onItemSingleClick}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_like_count"
+            app:layout_constraintTop_toBottomOf="@+id/tv_video_description" />
 
-    <View
-        android:id="@+id/line"
-        android:layout_width="match_parent"
-        android:layout_height="0.1dp"
-        android:background="#CDCDCD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="PxUsage" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_collection_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@{@string/collection_count(data.collectionCount)}"
+            android:textColor="@color/default_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/iv_collection"
+            app:layout_constraintTop_toBottomOf="@id/tv_video_description" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="#CDCDCD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="PxUsage" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

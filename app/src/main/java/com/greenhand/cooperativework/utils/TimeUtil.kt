@@ -31,6 +31,24 @@ object TimeUtil {
     }
 
     /**
+     * 根据秒数获取 xx:xx
+     */
+    fun getTimeBySecond(duration: Int): java.lang.StringBuilder {
+        val time: StringBuilder = java.lang.StringBuilder()
+        if (duration / 60 < 10) {
+            time.append("0" + duration / 60 + ":")
+        } else {
+            time.append((duration / 60).toString() + ":")
+        }
+        if (duration - 60 * (duration / 60) < 10) {
+            time.append("0" + (duration - 60 * (duration / 60)))
+        } else {
+            time.append(duration - 60 * (duration / 60))
+        }
+        return time
+    }
+
+    /**
      * 获取两个日期之间的间隔天数
      * @return 两个日期之间的间隔天数
      */

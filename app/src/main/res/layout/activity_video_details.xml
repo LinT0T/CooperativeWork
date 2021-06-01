@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-     <variable
-         name="videoBean"
-         type="com.greenhand.cooperativework.bean.VideoDetailsBean" />
+
+        <variable
+            name="videoBean"
+            type="com.greenhand.cooperativework.bean.VideoDetailsBean" />
+
         <variable
             name="eventHandle"
             type="com.greenhand.cooperativework.view.activity.VideoDetailsActivity.EventHandle" />
@@ -15,7 +17,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#6b6c6f"
         tools:context=".view.activity.VideoDetailsActivity">
 
         <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
@@ -28,8 +29,9 @@
             android:id="@+id/rv_video_details"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/video_player"
-            app:layout_constraintBottom_toTopOf="@+id/layout_reply" />
+            android:background="@drawable/shape_gradient"
+            app:layout_constraintBottom_toTopOf="@+id/layout_reply"
+            app:layout_constraintTop_toBottomOf="@+id/video_player" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_reply"
@@ -43,14 +45,14 @@
                 android:id="@+id/iv_user_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:scaleType="centerCrop"
                 android:layout_marginLeft="15dp"
-                android:onClick="@{eventHandle::onItemSingleClick}"
                 android:background="@mipmap/ic_default_user_icon"
                 android:backgroundTint="@color/default_white"
+                android:onClick="@{eventHandle::onItemSingleClick}"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
                 tools:ignore="ContentDescription" />
 
@@ -59,26 +61,26 @@
                 android:layout_width="260dp"
                 android:layout_height="35dp"
                 android:layout_marginLeft="15dp"
+                android:background="@drawable/et_shape"
                 android:hint="点击发表你的评论"
-                android:textSize="13.5sp"
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 android:textColorHint="@color/default_white"
-                android:background="@drawable/et_shape"
-                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="13.5sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/iv_user_icon" />
+                app:layout_constraintLeft_toRightOf="@id/iv_user_icon"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/iv_replay"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:layout_marginLeft="15dp"
                 android:background="@mipmap/ic_reply"
                 android:backgroundTint="@color/default_white"
-                app:layout_constraintLeft_toRightOf="@id/et_reply"
-                android:layout_marginLeft="15dp"
                 android:onClick="@{eventHandle::onItemSingleClick}"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/et_reply"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -86,11 +88,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
-                android:textColor="@color/default_white"
                 android:text="@{@string/reply_count(videoBean.replyCount)}"
+                android:textColor="@color/default_white"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/iv_replay"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

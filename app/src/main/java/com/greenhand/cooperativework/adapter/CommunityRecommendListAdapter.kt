@@ -193,11 +193,8 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
                     context?.startActivity(intent)
                 }
                 R.id.iv_community_video_image, R.id.tv_video_description -> {
-                    //跳转至视频Activity
-                    val intent = Intent(context, VideoDetailsActivity::class.java)
-                    //初始化视频Bean类 传入Activity中
-                    intent.putExtra("videoBean", initVideoBean(content))
-                    context?.startActivity(intent)
+                    //启动视频详细界面
+                    VideoDetailsActivity.startVideoDetailsActivity(context, initVideoBean(content))
                 }
                 else -> {
                     "缺少API".toast()
@@ -208,7 +205,6 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
     }
 
     private fun initVideoBean(content: CommunityRecommendBean.Content): VideoDetailsBean {
-        Log.d("zzz",content.data.id.toString())
         return VideoDetailsBean(
             content.data.title,
             content.data.playUrl,

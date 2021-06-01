@@ -9,7 +9,7 @@ data class VideoDetailsBean(
     val videoTitle: String,
     val videoUrl: String,
     val videoId: String,
-    val description: String,
+    val videoDescription: String,
     val likeCount: Int,
     val collectionCount: Int,
     val replyCount: Int,

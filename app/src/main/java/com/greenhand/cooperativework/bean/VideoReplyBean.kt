@@ -31,7 +31,7 @@ data class VideoReplyBean(
         val liked: Boolean,
         val message: String,
         val parentReply: Any,
-        val parentReplyId: Int,
+        val parentReplyId: Long,
         val replyStatus: String,
         val rootReplyId: Long,
         val sequence: Int,
