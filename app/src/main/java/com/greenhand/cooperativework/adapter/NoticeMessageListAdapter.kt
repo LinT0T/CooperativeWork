@@ -38,5 +38,9 @@ class NoticeMessageListAdapter(layoutId: Int) : BaseDataBindRecyclerAdapter<Item
     }
 
 
+    inner class EventHandle{
+        fun onItemSingleClick(){
 
+        }
+    }
 }
