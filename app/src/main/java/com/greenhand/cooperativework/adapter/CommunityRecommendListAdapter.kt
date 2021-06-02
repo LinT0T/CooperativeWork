@@ -140,7 +140,6 @@ class CommunityRecommendListAdapter(layoutId: Int, val context: Context?) :
         slideShow.addTransformer(ScaleInTransformer()) // 设置移动动画
             .addTransformer(AlphaPageTransformer())
             .setAutoSlideEnabled(true) // 开启自动滑动
-            .setStartItem(1) // 设置起始位置
             .setDelayTime(5000) // 设置自动滚动时间，但目前还没有实现自动滚动
             .setTimeInterpolator(AccelerateDecelerateInterpolator())
             .setAdapter(imagePath) { data, imageView, holder, position ->

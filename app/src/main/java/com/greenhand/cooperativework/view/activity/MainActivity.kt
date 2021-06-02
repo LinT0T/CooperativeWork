@@ -5,22 +5,16 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.base.BaseActivity
-import com.greenhand.cooperativework.viewmodel.activity.MainViewModel
 
 class MainActivity : BaseActivity() {
 
     private lateinit var mBottomNavigationView: BottomNavigationView
     private lateinit var mNavHostFragment: NavHostFragment
-
-    private val mViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

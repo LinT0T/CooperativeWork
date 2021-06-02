@@ -4,10 +4,15 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.IntDef
 import androidx.annotation.LayoutRes
+import androidx.annotation.RestrictTo
+import androidx.core.util.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import java.lang.annotation.Retention
+import java.lang.annotation.RetentionPolicy
 
 /**
  * .....
@@ -31,16 +36,17 @@ class BaseSimplifyRecyclerAdapter(
     fun <DB: ViewDataBinding> onBindView(@LayoutRes layoutId: Int,
                                          isInHere: (position: Int) -> Boolean,
                                          callback: (binding: DB, holder: BindingVH, position: Int) -> Unit): BaseSimplifyRecyclerAdapter {
-        val call = object : BindingCallBack<DB>(
+        val call = BindingCallBack(
             layoutId,
-            callback
-        ) {}
+            callback,
+            isInHere,
+        )
         for (i in 0 until itemCount) {
             if (isInHere(i)) {
-                mPositionsWithCallback.put(i, call as BindingCallBack<ViewDataBinding>)
+                mPositionsWithCallback.put(i, call as BindingCallBack<*>)
             }
         }
-        mLayoutIdWithCallback.put(layoutId, call as BindingCallBack<ViewDataBinding>)
+        mLayoutIdWithCallback.put(layoutId, call as BindingCallBack<*>)
         return this
     }
 
@@ -58,18 +64,35 @@ class BaseSimplifyRecyclerAdapter(
                                                  viewHolderClass: Class<VH>,
                                                  isInHere: (position: Int) -> Boolean,
                                                  callback: (holder: VH, position: Int) -> Unit): BaseSimplifyRecyclerAdapter {
-        val call = object : CommonCallBack<VH>(
+        val call = CommonCallBack(
             layoutId,
             callback,
-            viewHolderClass
-        ) {}
+            viewHolderClass,
+            isInHere,
+        )
         for (i in 0 until itemCount) {
             if (isInHere(i)) {
-                mPositionsWithCallback.put(i, call as CommonCallBack<RecyclerView.ViewHolder>)
+                mPositionsWithCallback.put(i, call as CommonCallBack<*>)
             }
         }
-        mLayoutIdWithCallback.put(layoutId, call as CommonCallBack<RecyclerView.ViewHolder>)
+        mLayoutIdWithCallback.put(layoutId, call as CommonCallBack<*>)
         return this
+    }
+
+    /**
+     * 用于改变 itemCount
+     *
+     * **NOTE：** 填入增加量
+     */
+    fun addItemCount(addItemCount: Int) {
+        for (i in 1..addItemCount) {
+            mLayoutIdWithCallback.forEach { layoutId, callback ->
+                if (callback.isInHere(itemCount + i)) {
+                    mPositionsWithCallback.put(itemCount + i, callback)
+                }
+            }
+        }
+        itemCount += addItemCount
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): RecyclerView.ViewHolder {
@@ -79,7 +102,7 @@ class BaseSimplifyRecyclerAdapter(
             BindingVH(binding)
         }else {
             val rootView = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-            (callBack as CommonCallBack<RecyclerView.ViewHolder>).getClass(rootView)
+            (callBack as CommonCallBack<*>).getClass(rootView)
         }
     }
 
@@ -119,14 +142,18 @@ class BaseSimplifyRecyclerAdapter(
 
     class BindingVH(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private abstract class Callback(val layoutId: Int) {
+    private abstract class Callback(
+        val layoutId: Int,
+        val isInHere: (position: Int) -> Boolean,
+    ) {
         abstract fun invoke(holder: RecyclerView.ViewHolder, position: Int, binding: ViewDataBinding? = null)
     }
 
-    private open class BindingCallBack<DB: ViewDataBinding>(
+    private class BindingCallBack<DB: ViewDataBinding>(
         layoutId: Int,
-        private val onCallback: (binding: DB, holder: BindingVH, position: Int) -> Unit
-    ) : Callback(layoutId) {
+        private val onCallback: (binding: DB, holder: BindingVH, position: Int) -> Unit,
+        isInHere: (position: Int) -> Boolean,
+    ) : Callback(layoutId, isInHere) {
         override fun invoke(
             holder: RecyclerView.ViewHolder,
             position: Int,
@@ -136,11 +163,12 @@ class BaseSimplifyRecyclerAdapter(
         }
     }
 
-    private open class CommonCallBack<VH: RecyclerView.ViewHolder>(
+    private class CommonCallBack<VH: RecyclerView.ViewHolder>(
         layoutId: Int,
         private val onCallback: ((holder: VH, position: Int) -> Unit),
-        val viewHolderClass: Class<VH>
-    ) : Callback(layoutId) {
+        val viewHolderClass: Class<VH>,
+        isInHere: (position: Int) -> Boolean,
+    ) : Callback(layoutId, isInHere) {
         override fun invoke(
             holder: RecyclerView.ViewHolder,
             position: Int,

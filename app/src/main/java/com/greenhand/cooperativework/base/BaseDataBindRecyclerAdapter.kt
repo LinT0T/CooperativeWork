@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @email 2767465918@qq.com
  * @data 2021/5/27
  */
+@Deprecated("因设计不合理，现在废除", ReplaceWith("请使用 BaseSimplifyRecyclerAdapter 代替"))
 abstract class BaseDataBindRecyclerAdapter<DB : ViewDataBinding>(
     @LayoutRes
     private val layoutId: Int,
