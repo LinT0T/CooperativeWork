@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/indexFragment"
         android:title="首页"
-        android:icon="@mipmap/ic_index" />
+        android:icon="@mipmap/ic_index"
+        tools:ignore="HardcodedText" />
     <item android:id="@+id/communityFragment"
         android:title="社区"
-        android:icon="@mipmap/ic_community"/>
+        android:icon="@mipmap/ic_community"
+        tools:ignore="HardcodedText" />
     <item android:id="@+id/noticeFragment"
         android:title="通知"
-        android:icon="@mipmap/ic_notice"/>
+        android:icon="@mipmap/ic_notice"
+        tools:ignore="HardcodedText" />
 </menu>

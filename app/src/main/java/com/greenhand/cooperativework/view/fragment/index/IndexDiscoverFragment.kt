@@ -1,10 +1,5 @@
 package com.greenhand.cooperativework.view.fragment.index
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import com.bumptech.glide.Glide
 import com.greenhand.cooperativework.R
@@ -23,6 +18,7 @@ class IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Inde
     R.layout.fragment_index_discover,
     IndexDiscoverViewModel::class.java
 ) {
+
     override fun init() {
         initRefresh()
         initBanner()
@@ -41,7 +37,6 @@ class IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Inde
     private fun initBanner() {
         val slideShow = mBinding.shIndexDiscoverBanner
         val bannerBean = mViewModel.banner
-        Log.d("123","(IndexDiscoverFragment.kt:40)-->> ???????????????")
         bannerBean.observe(this) { list ->
             mBinding.srlIndexDiscover.finishLoadMore()
             val urlList = ArrayList<String>(list.size)
@@ -64,6 +59,8 @@ class IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Inde
     }
 
     private fun initClassify() {
+        val rvClassify = mBinding.rvIndexDiscoverClassify
+
     }
 
     private fun initSpecial() {
@@ -73,24 +70,5 @@ class IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Inde
     }
 
     private fun initTheme() {
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        Log.d("123","(IndexDiscoverFragment.kt:83)-->> onCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onStop() {
-        Log.d("123","(IndexDiscoverFragment.kt:88)-->> onStop")
-        super.onStop()
-    }
-
-    override fun onDestroyView() {
-        Log.d("123","(IndexDiscoverFragment.kt:77)-->> ====================")
-        super.onDestroyView()
     }
 }

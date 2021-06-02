@@ -8,11 +8,11 @@ import androidx.core.animation.addListener
 import androidx.lifecycle.Observer
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.base.BaseApplication
-import com.greenhand.cooperativework.base.BaseBindingActivity
+import com.greenhand.cooperativework.base.BaseBindingVMActivity
 import com.greenhand.cooperativework.databinding.ActivityWelcomeBinding
 import com.greenhand.cooperativework.viewmodel.activity.WelcomeViewModel
 
-class WelcomeActivity : BaseBindingActivity<WelcomeViewModel, ActivityWelcomeBinding>(
+class WelcomeActivity : BaseBindingVMActivity<WelcomeViewModel, ActivityWelcomeBinding>(
     R.layout.activity_welcome,
     WelcomeViewModel::class.java
 ) {

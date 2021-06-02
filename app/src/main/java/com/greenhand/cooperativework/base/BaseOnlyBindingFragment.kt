@@ -30,13 +30,11 @@ abstract class BaseOnlyBindingFragment<DB: ViewDataBinding>(
     ): View {
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         mBinding.lifecycleOwner = this
-        Log.d("123","(BaseOnlyBindingFragment.kt:33)-->> ++++++++++++++++")
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init()
-        Log.d("123","(BaseOnlyBindingFragment.kt:39)-->> -----------------")
         super.onViewCreated(view, savedInstanceState)
     }
 

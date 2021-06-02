@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
  *@data 2021/5/25
  *@description
  */
-
 @BindingAdapter("imgFromUrl")
 fun ImageView.imgFromUrl(url: String?) {
     Glide.with(this).load(url).into(this)

@@ -1,7 +1,6 @@
 package com.greenhand.cooperativework.utils
 
 import androidx.lifecycle.*
-import androidx.lifecycle.viewmodel.compose.viewModel
 
 /**
  * 用协程请求网络数据
@@ -24,5 +23,3 @@ fun <T> ViewModel.liveDataLaunch(block: suspend () -> T) = liveData(viewModelSco
     val result = runCatching { block() }.onFailure { it.message?.toast() }
     emit(result.getOrNull())
 }
-
-fun <T, VM: ViewModel> liveDataLaunch(modelClass: Class<VM>, block: suspend () -> T) = viewModel(modelClass).liveDataLaunch(block)

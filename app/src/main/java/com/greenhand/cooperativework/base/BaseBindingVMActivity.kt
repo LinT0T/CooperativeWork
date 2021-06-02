@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
  * @email 2767465918@qq.com
  * @data 2021/6/2
  */
-abstract class BaseBindingActivity<VM: ViewModel, DB: ViewDataBinding>(
+abstract class BaseBindingVMActivity<VM: ViewModel, DB: ViewDataBinding>(
     @LayoutRes
     private val layoutId: Int,
     private val modelClass: Class<VM>,
@@ -29,22 +29,14 @@ abstract class BaseBindingActivity<VM: ViewModel, DB: ViewDataBinding>(
      * 是否沉浸式状态栏
      */
     isCancelStatusBar: Boolean = true
-) : BaseActivity(isPortraitScreen, isCancelStatusBar) {
+) : BaseOnlyBindingActivity<DB>(layoutId, isPortraitScreen, isCancelStatusBar) {
 
     val mViewModel by lazy {
         ViewModelProvider(this).get(modelClass)
-    }
-
-    val mBinding: DB by lazy {
-        val binding = DataBindingUtil.setContentView<DB>(this, layoutId)
-        binding.lifecycleOwner = this
-        binding
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
     }
-
-    abstract fun init()
 }

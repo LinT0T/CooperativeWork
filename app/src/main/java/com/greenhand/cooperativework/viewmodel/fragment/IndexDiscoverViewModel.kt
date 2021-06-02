@@ -52,7 +52,6 @@ class IndexDiscoverViewModel : ViewModel() {
     }
 
     fun refresh() {
-        Log.d("123","(IndexDiscoverViewModel.kt:55)-->> ====================")
         discoverRefresh.value?.plus(1)
     }
 }
