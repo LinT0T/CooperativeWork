@@ -52,7 +52,7 @@ class CommunityRecommendViewModel : ViewModel() {
                 }
             })
         } else {//不是首次获取推荐
-            val result = repository.getCommunityRecommendByPage(mNextPageUrl, "2")//第一页nextPageUrl为空
+            val result = repository.getCommunityRecommendByPage(mNextPageUrl, "2")
             result.enqueue(object : retrofit2.Callback<CommunityRecommendBean> {
                 override fun onResponse(
                     call: Call<CommunityRecommendBean>,
