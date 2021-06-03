@@ -1,6 +1,7 @@
 package com.greenhand.cooperativework.view.fragment.community
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
         super.onViewCreated(view, savedInstanceState)
         //初始化View
         initRecommendListView(view)
-        //向ViewModel中传入this
+        //向ViewModel中传入this 用于刷新和加载后的接口回调
         mViewModel.setFragment(this)
         //观察ViewModel数据变化
         observeData()

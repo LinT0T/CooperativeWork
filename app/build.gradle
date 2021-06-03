@@ -71,7 +71,7 @@ dependencies {
     implementation 'com.github.donkingliang:ConsecutiveScroller:4.5.0'
 
     // GSYVideoPlayer————视频播放库
-    implementation 'com.shuyu:GSYVideoPlayer:7.1.8'
+    implementation 'com.github.CarGuo.GSYVideoPlayer:gsyVideoPlayer:v8.1.3-jitpack'
 
     //文字加载动画
     def htextview_version = "0.1.6"

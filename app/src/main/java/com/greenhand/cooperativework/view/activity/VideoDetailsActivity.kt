@@ -65,7 +65,7 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
     }
 
     private fun startLoadData() {
-        mViewModel.loadData(mVideoBean?.videoId)
+        mViewModel.loadVideo(mVideoBean?.videoId)
     }
 
     private fun observeData() {
@@ -73,10 +73,12 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
             mRelevantVideoList = it[0] as ArrayList<RelevantVideoBean.Data>
             mVideoReplyList = it[1] as ArrayList<VideoReplyBean.Data>
 
-            //将数据传到adapter中
+            /**
+             * 将数据传到adapter中
+             * item数量为1个该视频详细界面+一些相关视频+1个TextView-->"最新评论"+该视频评论
+             */
             mRecyclerView.layoutManager = LinearLayoutManager(this)
 
-            //item数量为1个该视频详细界面+一些相关视频+1个TextView-->"最新评论"+该视频评论
             mAdapter =
                 BaseSimplifyRecyclerAdapter(1 + mRelevantVideoList.size + 1 + mVideoReplyList.size)
 
@@ -89,8 +91,7 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
                         binding.data = mVideoBean
                         binding.eventHandle = EventHandle(null)
                         //设置TextView展示动画
-                        val videoDescription: HTextView =
-                            holder.itemView.findViewById(R.id.tv_video_description)
+                        val videoDescription: HTextView =binding.tvVideoDescription
                         videoDescription.animateText(mVideoBean?.videoDescription)
                     })
                 .onBindView<ItemRelevantVideoBinding>(R.layout.item_relevant_video,
@@ -99,8 +100,7 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
                         binding.data = mRelevantVideoList[position - 1]
                         binding.eventHandle = EventHandle(mRelevantVideoList[position - 1])
                         //单独处理时间
-                        val durationTextView: TextView =
-                            holder.itemView.findViewById(R.id.tv_video_duration)
+                        val durationTextView: TextView = binding.tvVideoDuration
                         durationTextView.text =
                             TimeUtil.getTimeBySecond(mRelevantVideoList[position - 1].duration)
                     })
@@ -117,7 +117,7 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
                         binding.data = mVideoReplyList[position - 1 - 1 - mRelevantVideoList.size]
                         binding.eventHandle = EventHandle(null)
                         //单独处理时间
-                        val time: TextView = holder.itemView.findViewById(R.id.tv_reply_time)
+                        val time: TextView = binding.tvReplyTime
                         val date = Date()
                         date.time =
                             mVideoReplyList[position - 1 - 1 - mRelevantVideoList.size].createTime
@@ -143,6 +143,7 @@ class VideoDetailsActivity : GSYBaseActivityDetail<StandardGSYVideoPlayer>() {
             .setUrl(mVideoBean?.videoUrl)
             .setVideoTitle(mVideoBean?.videoTitle)
             .setIsTouchWiget(true)
+            .setCacheWithPlay(true)
             .setAutoFullWithSize(true)
             .setRotateViewAuto(false)
             .setLockLand(false)

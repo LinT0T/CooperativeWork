@@ -1,6 +1,5 @@
 package com.greenhand.cooperativework.viewmodel.activity
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.greenhand.cooperativework.bean.RelevantVideoBean
@@ -22,7 +21,7 @@ class VideoDetailsViewModel : ViewModel() {
         MutableLiveData<MutableList<Any>>()
     }
 
-    fun loadData(id: String?) {
+    fun loadVideo(id: String?) {
         /**
          * 获取推荐视频
          * 注:因为接口问题 部分视频获取推荐视频可能为空 故若为空则获取一个固定的相关视频List id为186856
@@ -33,7 +32,6 @@ class VideoDetailsViewModel : ViewModel() {
                 call: Call<RelevantVideoBean>,
                 response: Response<RelevantVideoBean>
             ) {
-                Log.d("zz", id.toString() + " knj")
                 val result = response.body()
                 //总list
                 var itemList = result?.itemList
@@ -49,7 +47,7 @@ class VideoDetailsViewModel : ViewModel() {
                     }
                     getReply(id)
                 } else {
-                    loadData("186856")
+                    loadVideo("186856")
                 }
             }
 
@@ -57,8 +55,6 @@ class VideoDetailsViewModel : ViewModel() {
                 "网络错误!".toast()
             }
         })
-
-
     }
 
     fun getReply(id: String?) {
@@ -100,7 +96,7 @@ class VideoDetailsViewModel : ViewModel() {
         postValue()
     }
 
-    fun postValue() {
+    private fun postValue() {
         //获取两个数据后 postValue
         if (mVideoMessageList.size < 2) {
             mVideoMessageList.add(mRelevantVideoList)

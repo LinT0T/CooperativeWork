@@ -6,10 +6,10 @@
     <data>
         <variable
             name="content"
-            type="com.greenhand.cooperativework.bean.CommunityRecommendBean.Content" />
+            type="com.greenhand.cooperativework.bean.CommunityFollowBean.Content" />
         <variable
             name="eventHandle"
-            type="com.greenhand.cooperativework.adapter.CommunityRecommendListAdapter.EventHandle" />
+            type="com.greenhand.cooperativework.view.fragment.community.CommunityFollowFragment.EventHandle" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -33,7 +33,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:scaleType="centerCrop"
-                app:imgFromUrl="@{content.data.owner.avatar}"
+                app:imgFromUrl="@{content.data.author.icon}"
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{content.data.owner.nickname}"
+                android:text="@{content.data.author.name}"
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintLeft_toRightOf="@+id/iv_user_icon"
                 app:layout_constraintTop_toTopOf="parent" />
