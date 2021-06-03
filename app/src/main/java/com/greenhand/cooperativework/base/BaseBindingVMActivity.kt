@@ -34,9 +34,4 @@ abstract class BaseBindingVMActivity<VM: ViewModel, DB: ViewDataBinding>(
     val mViewModel by lazy {
         ViewModelProvider(this).get(modelClass)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        init()
-    }
 }

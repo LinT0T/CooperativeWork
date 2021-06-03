@@ -4,15 +4,11 @@ import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntDef
 import androidx.annotation.LayoutRes
-import androidx.annotation.RestrictTo
 import androidx.core.util.forEach
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 /**
  * .....
@@ -20,7 +16,7 @@ import java.lang.annotation.RetentionPolicy
  * @email 2767465918@qq.com
  * @data 2021/5/31
  */
-class BaseSimplifyRecyclerAdapter(
+open class BaseSimplifyRecyclerAdapter(
     private var itemCount: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
