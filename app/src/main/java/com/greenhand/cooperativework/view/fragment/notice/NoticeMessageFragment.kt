@@ -9,14 +9,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.NoticeMessageListAdapter
+import com.greenhand.cooperativework.view.fragment.RefreshAndLoad
 import com.greenhand.cooperativework.viewmodel.fragment.NoticeMessageViewModel
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 
-class NoticeMessageFragment:Fragment() {
+class NoticeMessageFragment:Fragment(),RefreshAndLoad {
     private lateinit var mView:View
     private lateinit var mRecyclerView:RecyclerView
     private lateinit var mMessageListAdapter: NoticeMessageListAdapter
     private lateinit var mLayoutManager:LinearLayoutManager
     private lateinit var mMessageViewModel:NoticeMessageViewModel
+    private lateinit var mSmartRefreshLayout: SmartRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +38,7 @@ class NoticeMessageFragment:Fragment() {
         mView = view
         initViews()
         initViewModel()
-        firstLoadData()
+        loadData()
     }
 
     private fun initViews(){
@@ -44,10 +47,18 @@ class NoticeMessageFragment:Fragment() {
         mMessageListAdapter = NoticeMessageListAdapter(R.layout.item_notice_message)
         mRecyclerView.adapter = mMessageListAdapter
         mRecyclerView.layoutManager = mLayoutManager
+        mSmartRefreshLayout = mView.findViewById(R.id.message_smart_refresh_layout)
+        mSmartRefreshLayout.setOnLoadMoreListener{
+            loadData()
+        }
+        mSmartRefreshLayout.setOnRefreshListener {
+            refreshData()
+        }
     }
 
     private fun initViewModel(){
         mMessageViewModel = NoticeMessageViewModel()
+        mMessageViewModel.setRefreshAndLoad(this)
         mMessageViewModel.messageList.observe(viewLifecycleOwner,
             {
                 mMessageListAdapter.setData(it)
@@ -55,10 +66,20 @@ class NoticeMessageFragment:Fragment() {
         )
     }
 
+    private fun refreshData(){
+        mMessageViewModel.refreshData()
+    }
 
-    private fun firstLoadData(){
+    private fun loadData(){
         mMessageViewModel.loadData()
     }
 
+    override fun finishRefresh() {
+        mSmartRefreshLayout.finishRefresh()
+    }
+
+    override fun finishLoad() {
+        mSmartRefreshLayout.finishLoadMore()
+    }
 
 }

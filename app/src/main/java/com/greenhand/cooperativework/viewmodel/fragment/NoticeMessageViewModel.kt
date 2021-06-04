@@ -6,17 +6,20 @@ import androidx.lifecycle.ViewModel
 import com.greenhand.cooperativework.bean.NoticeMessageBean
 import com.greenhand.cooperativework.http.NoticeApi
 import com.greenhand.cooperativework.utils.toast
+import com.greenhand.cooperativework.view.fragment.RefreshAndLoad
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class NoticeMessageViewModel: ViewModel() {
-
+    private lateinit var mRefreshAndLoad:RefreshAndLoad
     private var mMessageList = ArrayList<NoticeMessageBean>()
     private var nextPageUrl:String = UNDEFINED_NEXT_PAGE_URL
     private var dataFull:Boolean = false
     private var nextStartingMessageIndex:Int = 0
     private var messageDataPerLoading:Int = 10
+    private var firstLoad:Boolean = true
+    private var mRefreshMode:Boolean = false
 
     val messageList by lazy{ MutableLiveData<ArrayList<NoticeMessageBean>>() }
 
@@ -28,22 +31,27 @@ class NoticeMessageViewModel: ViewModel() {
             showDataFull()
             return
         }
+
         //创建OkHttpClient
         val client = OkHttpClient()
-        val request = Request.Builder().get().url(NoticeApi.messageUrl).
-        addHeader("start",nextStartingMessageIndex.toString()).
-        addHeader("num",messageDataPerLoading.toString()).build()
+        var myUrl = HttpUrl.parse(NoticeApi.messageUrl)?.newBuilder()?.
+        addQueryParameter("start",nextStartingMessageIndex.toString())?.
+        addQueryParameter("num",messageDataPerLoading.toString())?.build()
+        val request = Request.Builder().get().url(myUrl).build()
         val call = client.newCall(request)
         call.enqueue(object : Callback{
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("RequestError","Request failure!")
+                "请求失败".toast()
             }
 
             override fun onResponse(call: Call, response: Response) {
                 if(response.isSuccessful)
                     retreatData(response)
-                else
-                    Log.e("RequestError","Request redirected!")
+                else {
+                    Log.e("RequestError", "Request redirected!")
+                    "请求被重置".toast()
+                }
             }
         })
     }
@@ -81,6 +89,25 @@ class NoticeMessageViewModel: ViewModel() {
         }
         mMessageList.addAll(listCache)
         messageList.postValue(mMessageList)
+
+        if(mRefreshAndLoad != null) {
+            when {
+                !firstLoad -> {
+
+                    mRefreshAndLoad.finishLoad()
+                }
+                else -> {
+                    firstLoad = false
+                    if(mRefreshMode){
+                        mRefreshAndLoad.finishRefresh()
+                    }
+                }
+            }
+        }
+    }
+
+   fun setRefreshAndLoad(refreshAndLoad: RefreshAndLoad){
+        mRefreshAndLoad = refreshAndLoad
     }
 
     companion object {
@@ -89,6 +116,15 @@ class NoticeMessageViewModel: ViewModel() {
     }
 
     private fun showDataFull(){
-        "消息已经加载完毕了哦>_<".toast()
+        "消息已经全部加载完毕了哦>_<".toast()
+    }
+
+    fun refreshData(){
+        mMessageList = ArrayList<NoticeMessageBean>()
+        nextStartingMessageIndex = 0
+        mRefreshMode = true
+        firstLoad = true
+        dataFull = false
+        loadData()
     }
 }

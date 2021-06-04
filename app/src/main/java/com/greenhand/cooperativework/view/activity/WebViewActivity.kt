@@ -4,11 +4,10 @@ import android.os.Bundle
 import com.greenhand.cooperativework.base.BaseActivity
 
 /**
- * 公用的WebViewActivity
- *
+ * @description 公用的WebViewActivity
  * 请使用actStartImplicitly(url:String)方法隐式启动，谢谢。
  *
- * Author: XSH
+ * @Author XSH
  */
 
 class WebViewActivity: BaseActivity() {
