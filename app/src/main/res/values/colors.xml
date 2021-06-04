@@ -7,11 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
 
-    <color name="test">#4CAF50</color>
+    <color name="test">#B8B8B8</color>
 
     <!--下面三个颜色作为整个应用的统一色，希望各位统一一下颜色-->
     <!--这个是系统界面的默认背景颜色-->
-    <color name="default_white">#FAFAFA</color>
+    <color name="default_white">#FFFFFF</color>
     <!--较暗的灰色-->
     <color name="default_dark_grey">#333333</color>
     <!--较亮的灰色-->

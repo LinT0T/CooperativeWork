@@ -23,8 +23,8 @@
         <com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
 
             <com.ndhzs.slideshow.SlideShow
                 android:id="@+id/sh_index_discover_banner"
@@ -36,8 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:slide_outPageInterval="@dimen/community_parent_left_right"
                 app:slide_adjacentPageInterval="2dp"
-                app:slide_imgRadius="12dp"
-                app:layout_isConsecutive="false"/>
+                app:slide_imgRadius="12dp" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -69,19 +68,186 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_index_discover_classify"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                />
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@android:color/transparent"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="3px"
-                android:background="@color/default_light_grey"
+                android:background="#FFB8B8B8"
                 tools:ignore="PxUsage" />
 
-            <include
-                layout="@layout/include_index_discover_special"
-                app:indexDiscoverViewModel="@{indexDiscoverViewModel}"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:textStyle="bold"
+                    android:text="专题策划"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    tools:ignore="HardcodedText" />
+
+                <Button
+                    android:id="@+id/btn_index_discover_special"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:text="查看全部专题 >"
+                    android:textColor="#1296db"
+                    android:textSize="15sp"
+                    android:background="@android:color/transparent"
+                    tools:ignore="HardcodedText" />
+
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_index_discover_special_left_top"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardCornerRadius="@dimen/default_small_radius"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cv_index_discover_special_left_bottom"
+                    app:layout_constraintEnd_toStartOf="@+id/cv_index_discover_special_right_top"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed">
+
+                    <ImageView
+                        android:id="@+id/img_11_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_11_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000"
+                        android:textStyle="bold"
+                        android:textColor="@color/default_white"
+                        android:gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_index_discover_special_right_top"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:cardCornerRadius="@dimen/default_small_radius"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/cv_index_discover_special_right_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cv_index_discover_special_left_top"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed">
+
+                    <ImageView
+                        android:id="@+id/img_21_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_21_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000"
+                        android:textStyle="bold"
+                        android:textColor="@color/default_white"
+                        android:gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_index_discover_special_left_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:cardCornerRadius="@dimen/default_small_radius"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cv_index_discover_special_right_bottom"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cv_index_discover_special_left_top">
+
+                    <ImageView
+                        android:id="@+id/img_12_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_12_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000"
+                        android:textStyle="bold"
+                        android:textColor="@color/default_white"
+                        android:gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_index_discover_special_right_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    app:cardCornerRadius="@dimen/default_small_radius"
+                    app:cardElevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cv_index_discover_special_left_bottom"
+                    app:layout_constraintTop_toBottomOf="@+id/cv_index_discover_special_right_top">
+
+                    <ImageView
+                        android:id="@+id/img_22_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_22_index_discover_special"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000"
+                        android:textStyle="bold"
+                        android:textColor="@color/default_white"
+                        android:gravity="center" />
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3px"
+                android:background="#FFB8B8B8"
+                tools:ignore="PxUsage" />
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -117,8 +283,13 @@
 
             <View
                 android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="match_parent"
                 android:layout_height="3px"
-                android:background="@color/default_light_grey"
+                android:background="#FFB8B8B8"
                 tools:ignore="PxUsage" />
 
             <FrameLayout
@@ -152,6 +323,16 @@
                 android:id="@+id/rv_index_discover_theme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:textStyle="italic"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gravity="center"
+                android:text="-THE END-"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
 
         </com.donkingliang.consecutivescroller.ConsecutiveScrollerLayout>
 

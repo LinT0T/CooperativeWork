@@ -43,7 +43,7 @@
                 android:id="@+id/message_icon_img_view"
                 android:src="@mipmap/ic_reply"
                 android:layout_width="48dp"
-                app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
+                app:shapeAppearanceOverlay="@style/shapeImg_small_picture_radius"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
 

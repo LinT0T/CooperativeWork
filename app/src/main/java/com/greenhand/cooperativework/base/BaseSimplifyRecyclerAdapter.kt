@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @email 2767465918@qq.com
  * @data 2021/5/31
  */
-open class BaseSimplifyRecyclerAdapter(
+class BaseSimplifyRecyclerAdapter(
     private var itemCount: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

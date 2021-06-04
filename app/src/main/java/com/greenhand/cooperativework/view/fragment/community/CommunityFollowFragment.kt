@@ -89,7 +89,7 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
 
             //创建时count为0 每次请求回来+10个数据
             mAdapter.addItemCount(10)
-
+            mAdapter.notifyDataSetChanged()
             /**
              * 注意第68 69行 下拉刷新时会调用 修改时要考虑到这里
              */
@@ -119,6 +119,7 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
             //若recyclerView中adapter未被初始化 则初始化
             if (mRecyclerView.adapter == null) {
                 mRecyclerView.adapter = mAdapter
+
             }
         })
     }

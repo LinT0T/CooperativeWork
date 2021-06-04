@@ -4,6 +4,7 @@ import android.view.KeyEvent
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.base.BaseOnlyBindingActivity
@@ -35,7 +36,15 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
 
         val navView = mBinding.mainNavView
         val slideShow = mBinding.mainSlideShow
-        slideShow.setAdapter(fragments, this).setUserInputEnabled(false)
+        slideShow
+            .setAdapter(fragments, this)
+            .setUserInputEnabled(userInputEnabled = false, isOpenNestedScroll = true)
+            .setOffscreenPageLimit(1)
+            .setPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    navView.menu.getItem(position).isChecked = true
+                }
+            })
 
         navView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -55,7 +64,6 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
             false
         })
     }
-
 
     /**
      * 用来连点两下退出应用

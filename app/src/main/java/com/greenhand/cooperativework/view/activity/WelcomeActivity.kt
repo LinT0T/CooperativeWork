@@ -50,11 +50,12 @@ class WelcomeActivity : BaseBindingVMActivity<WelcomeViewModel, ActivityWelcomeB
         val startTime = System.currentTimeMillis()
         mViewModel.imgUrl.observe(this, Observer {
             val diffTime = System.currentTimeMillis() - startTime
+            val newDuration = duration - diffTime
             mBinding.imgWelcomeBackground.animate()
                 .alpha(0.8F)
                 .scaleX(1.1F)
                 .scaleY(1.1F)
-                .duration = duration - diffTime
+                .duration = if (newDuration < 0) 0 else newDuration
         })
     }
 }

@@ -30,12 +30,8 @@ abstract class BaseOnlyBindingFragment<DB: ViewDataBinding>(
     ): View {
         mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         mBinding.lifecycleOwner = this
-        return mBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init()
-        super.onViewCreated(view, savedInstanceState)
+        return mBinding.root
     }
 
     abstract fun init()

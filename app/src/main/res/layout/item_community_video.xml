@@ -37,7 +37,7 @@
                 android:onClick="@{eventHandle::onItemSingleClick}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
+                app:shapeAppearanceOverlay="@style/shapeImg_small_picture_radius"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -75,7 +75,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/iv_user_icon"
-                app:shapeAppearanceOverlay="@style/shapeImg_community_big_picture_radius"
+                app:shapeAppearanceOverlay="@style/shapeImg_big_picture_radius"
                 tools:ignore="ContentDescription" />
 
             <ImageView

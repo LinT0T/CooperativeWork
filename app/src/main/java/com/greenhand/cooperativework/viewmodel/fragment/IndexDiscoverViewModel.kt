@@ -1,15 +1,12 @@
 package com.greenhand.cooperativework.viewmodel.fragment
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.greenhand.cooperativework.bean.IndexDiscoverBean
 import com.greenhand.cooperativework.repository.fragment.IndexRepository
 import com.greenhand.cooperativework.utils.switchMap
 import com.greenhand.cooperativework.utils.switchMapLaunch
 import com.greenhand.cooperativework.utils.toast
-import kotlinx.coroutines.launch
 
 /**
  * .....
@@ -19,23 +16,28 @@ import kotlinx.coroutines.launch
  */
 class IndexDiscoverViewModel : ViewModel() {
 
-    private val discoverRefresh = MutableLiveData(0)
+    private val refreshTimes = MutableLiveData(0)
 
-    private val discoverBean = switchMapLaunch(discoverRefresh) {
+    private val discoverBean = switchMapLaunch(refreshTimes) {
         IndexRepository.getIndexDiscoverBean()
     }
     val banner = switchMap(discoverBean) {
         "首页刷新图片".toast()
-        discoverBean.value?.itemList?.get(0)?.data?.itemList!!
+        discoverBean.value?.itemList?.get(0)?.data?.itemList
     }
     val classify = switchMap(discoverBean) {
-        discoverBean.value?.itemList?.get(1)?.data?.itemList!!
+        discoverBean.value?.itemList?.get(1)?.data?.itemList
     }
     val special = switchMap(discoverBean) {
-        discoverBean.value?.itemList?.get(2)?.data?.itemList!!
+        discoverBean.value?.itemList?.get(2)?.data?.itemList
     }
     val rankList = switchMap(discoverBean) {
-        val list = ArrayList<IndexDiscoverBean.Data>(5)
+        val list: ArrayList<IndexDiscoverBean.Data>?
+        if (discoverBean.value?.itemList?.get(4)?.data == null) {
+            return@switchMap null
+        }else {
+            list = ArrayList(5)
+        }
         for (i in 1..5) {
             val data = discoverBean.value?.itemList?.get(3 + i)?.data!!
             list.add(data)
@@ -43,7 +45,12 @@ class IndexDiscoverViewModel : ViewModel() {
         list
     }
     val theme = switchMap(discoverBean) {
-        val list = ArrayList<IndexDiscoverBean.Data>(10)
+        val list: ArrayList<IndexDiscoverBean.Data>?
+        if (discoverBean.value?.itemList?.get(10)?.data == null) {
+            return@switchMap null
+        }else {
+            list = ArrayList(10)
+        }
         for (i in 1..10) {
             val data = discoverBean.value?.itemList?.get(9 + i)?.data!!
             list.add(data)
@@ -52,6 +59,6 @@ class IndexDiscoverViewModel : ViewModel() {
     }
 
     fun refresh() {
-        discoverRefresh.value?.plus(1)
+        refreshTimes.value = refreshTimes.value!! + 1
     }
 }

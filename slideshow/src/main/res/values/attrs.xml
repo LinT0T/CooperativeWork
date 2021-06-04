@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SlideShow">
+        <!--设置内部 ImageView 的宽度-->
+        <attr name="slide_imgWight" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+
+        <!--设置内部 ImageView 的高度-->
+        <attr name="slide_imgHeight" format="dimension">
+            <enum name="fill_parent" value="-1" />
+            <enum name="match_parent" value="-1" />
+            <enum name="wrap_content" value="-2" />
+        </attr>
+
+        <attr name="slide_imgMargin" format="dimension"  />
+
+        <!--注意：如果在水平滑动时 imgWidth 不为 match_parent 或者设置了 slide_outPageInterval，设置 imgMarginHorizontal 将无效-->
+        <attr name="slide_imgMarginHorizontal" format="dimension"  />
+
+        <!--注意：如果在垂直滑动时 imgHeight 不为 match_parent 或者设置了 slide_outPageInterval，设置 imgMarginVertical 将无效-->
+        <attr name="slide_imgMarginVertical" format="dimension" />
+
+        <attr name="slide_imgRadius" format="dimension"/>
+        <attr name="slide_imgLeftTopRadius" format="dimension"/>
+        <attr name="slide_imgRightTopRadius" format="dimension"/>
+        <attr name="slide_imgLeftBottomRadius" format="dimension"/>
+        <attr name="slide_imgRightBottomRadius" format="dimension"/>
+
+        <attr name="slide_imgDefaultColor" format="color"/>
+
+        <attr name="slide_orientation" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="vertical" value="1"/>
+        </attr>
+
+        <!--<attr name="slide_pageInterval" format="dimension"/>-->
+
+        <!--设置 ViewPager2 内部相邻页面的边距。
+            Orientation 为水平时设置左右的间隔，垂直时设置上下的间隔。-->
+        <attr name="slide_adjacentPageInterval" format="dimension"/>
+        <!--设置 ViewPager2 内部页面与外部页面的边距。
+
+            注意：slide_outPageInterval 必须大于 slide_adjacentPageInterval 的一半。
+
+            注意：设置该值后，slide_imgMarginHorizontal 或者 slide_imgMarginVertical 将无效-->
+        <attr name="slide_outPageInterval" format="dimension"/>
+
+
+        <!--是否显示指示器-->
+        <attr name="slide_isShowIndicators" format="boolean"/>
+        <!--指示器圆点半径大小-->
+        <attr name="slide_indicatorsRadius" format="dimension"/>
+        <!--指示器圆点颜色-->
+        <attr name="slide_indicatorsColor" format="color"/>
+        <!--指示器横幅颜色-->
+        <attr name="slide_indicatorsBannerColor" format="color"/>
+
+        <attr name="slide_indicatorsStyle" format="enum">
+            <enum name="null_view" value="0"/>
+            <enum name="normal" value="1"/>
+        </attr>
+
+        <attr name="slide_indicatorsGravity">
+            <flag name="top" value="0x30" />
+            <flag name="bottom" value="0x50" />
+            <flag name="left" value="0x03" />
+            <flag name="right" value="0x05" />
+            <flag name="center" value="0x11" />
+            <flag name="center_vertical" value="0x10" />
+            <flag name="center_horizontal" value="0x01" />
+        </attr>
+    </declare-styleable>
+</resources>

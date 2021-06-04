@@ -31,7 +31,7 @@
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/shapeImg_community_small_picture_radius"
+            app:shapeAppearanceOverlay="@style/shapeImg_small_picture_radius"
             tools:ignore="ContentDescription" />
 
         <TextView

@@ -1,2 +1,3 @@
+include ':slideshow'
 include ':app'
 rootProject.name = "CooperativeWork"
