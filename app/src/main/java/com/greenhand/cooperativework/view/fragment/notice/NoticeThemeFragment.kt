@@ -43,37 +43,51 @@ class NoticeThemeFragment:Fragment(),RefreshAndLoad {
 
         mView = view
 
+
         initView()
-        initViewModel()
+        observeData()
         loadOrRefreshData()
+        initViewModel()
+
     }
 
     private fun initView(){
         mSmartRefreshLayout = mView.findViewById(R.id.theme_refresh_layout)
         mRecyclerView = mView.findViewById(R.id.theme_rv)
-        mAdapter = BaseSimplifyRecyclerAdapter(1)
-        mRecyclerView.adapter = mAdapter
-        mRecyclerView.layoutManager = mLayoutManager
+        mAdapter = BaseSimplifyRecyclerAdapter(0)
         mLayoutManager = LinearLayoutManager(context)
         mRecyclerView.layoutManager = mLayoutManager
+        mRecyclerView.layoutManager = mLayoutManager
+        mSmartRefreshLayout.setOnRefreshListener {
+            mViewModel.loadData()
+        }
     }
 
     private fun loadOrRefreshData(){
-
         mViewModel.loadData()
     }
 
     private fun initViewModel(){
         mViewModel.setRefreshAndLoadTarget(this)
+
+    }
+
+    private fun observeData(){
         mViewModel.tabList.observe(viewLifecycleOwner,{
-            mAdapter.addItemCount(mTabList.size-mAdapter.itemCount)
-            mAdapter.onBindView<ItemNoticeThemeBinding>(
+            mAdapter.addItemCount(it.size-mAdapter.itemCount)
+            mAdapter
+                .onBindView<ItemNoticeThemeBinding>(
                 R.layout.item_notice_theme,
-                {position -> position>=0 },
-                {binding, holder, position ->
-                    binding.tab = mTabList[position]
-                    binding.eventHandle = EventHandle(mTabList[position])
+                { position-> true},
+                {binding, holder, position->
+                    val tabCache = it[position]
+                    binding.tab = tabCache
+                    binding.eventHandle = EventHandle(tabCache)
+
                 })
+            if(mRecyclerView.adapter == null) {
+                mRecyclerView.adapter = mAdapter
+            }
         })
     }
 

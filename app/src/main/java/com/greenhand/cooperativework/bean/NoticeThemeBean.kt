@@ -13,6 +13,4 @@ data class NoticeThemeBean(val tabInfo:TabInfo){
             val nameType:Int
             )
     }
-
-
 }

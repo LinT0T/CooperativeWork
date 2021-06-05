@@ -36,7 +36,7 @@ class NoticeMessageBean (
 
     inner class EventHandle(){
         fun onItemSingleClick(view: View){
-            "即将为您打开网页。".toast()
+            "缺少API".toast()
         }
     }
 
