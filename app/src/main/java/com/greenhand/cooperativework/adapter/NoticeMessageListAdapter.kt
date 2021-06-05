@@ -19,7 +19,6 @@ import java.util.zip.Inflater
 
 class NoticeMessageListAdapter(layoutId: Int) : BaseDataBindRecyclerAdapter<ItemNoticeMessageBinding>(layoutId,false) {
     private var mMessageBeanList=ArrayList<NoticeMessageBean>()
-    private lateinit var refreshAndLoad: RefreshAndLoad
 
     override fun onBaseBindViewHolder(
         binding: ItemNoticeMessageBinding,

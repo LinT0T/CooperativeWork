@@ -34,7 +34,7 @@ class NoticeMessageViewModel: ViewModel() {
 
         //创建OkHttpClient
         val client = OkHttpClient()
-        var myUrl = HttpUrl.parse(NoticeApi.messageUrl)?.newBuilder()?.
+        val myUrl = HttpUrl.parse(NoticeApi.messageUrl)?.newBuilder()?.
         addQueryParameter("start",nextStartingMessageIndex.toString())?.
         addQueryParameter("num",messageDataPerLoading.toString())?.build()
         val request = Request.Builder().get().url(myUrl).build()

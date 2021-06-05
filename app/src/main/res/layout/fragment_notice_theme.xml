@@ -5,9 +5,20 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.notice.NoticeThemeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/theme_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+        <com.scwang.smart.refresh.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/theme_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+
 
 </FrameLayout>
