@@ -88,38 +88,37 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
              */
 
             //创建时count为0 每次请求回来+10个数据
-            mAdapter.addItemCount(10)
-            mAdapter.notifyDataSetChanged()
+            mAdapter.addItemCountAndNotifyRefresh(10)
             /**
              * 注意第68 69行 下拉刷新时会调用 修改时要考虑到这里
              */
-            //绑定数据
-            mAdapter.onBindView<ItemCommunityFollowBinding>(R.layout.item_community_follow,
-                { position -> true },
-                { binding, holder, position ->
-                    /**
-                     * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置
-                     * 此时因为未知原因 onBindView会被重复调用多次
-                     * 所以可能会发生这样的情况:
-                     * 刷新时mFollowVideoList被clear了 而此时onBindView正在被调用 导致获取不到数据
-                     * 因此进行mFollowVideoList.size>0的判断
-                     */
-                    if (mFollowVideoList.size>0){
-                        binding.content = mFollowVideoList[position].content
-                        binding.eventHandle = EventHandle(mFollowVideoList[position].content)
 
-                        // 单独处理视频发布时间
-                        val time = holder.itemView.findViewById<TextView>(R.id.tv_time)
-                        val data = Date()
-                        data.time = mFollowVideoList[position].content.data.releaseTime
-                        time.text = TimeUtil.getTime(data)
-                    }
-                })
 
             //若recyclerView中adapter未被初始化 则初始化
             if (mRecyclerView.adapter == null) {
                 mRecyclerView.adapter = mAdapter
+                //绑定数据
+                mAdapter.onBindView<ItemCommunityFollowBinding>(R.layout.item_community_follow,
+                    { position -> true },
+                    { binding, holder, position ->
+                        /**
+                         * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置
+                         * 此时因为未知原因 onBindView会被重复调用多次
+                         * 所以可能会发生这样的情况:
+                         * 刷新时mFollowVideoList被clear了 而此时onBindView正在被调用 导致获取不到数据
+                         * 因此进行mFollowVideoList.size>0的判断
+                         */
+                        if (mFollowVideoList.size>0){
+                            binding.content = mFollowVideoList[position].content
+                            binding.eventHandle = EventHandle(mFollowVideoList[position].content)
 
+                            // 单独处理视频发布时间
+                            val time = holder.itemView.findViewById<TextView>(R.id.tv_time)
+                            val data = Date()
+                            data.time = mFollowVideoList[position].content.data.releaseTime
+                            time.text = TimeUtil.getTime(data)
+                        }
+                    })
             }
         })
     }

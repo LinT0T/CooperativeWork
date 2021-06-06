@@ -25,6 +25,7 @@ class IndexFragment : BaseOnlyBindingFragment<FragmentIndexBinding>(R.layout.fra
             .setAdapter(mFragments, requireActivity())
             .setTransformer(RotateYTransformer(10F))
             .setOffscreenPageLimit(1)
+            .setOpenNestedScroll(true)
 
         TabLayoutMediator(
             tabLayout, slideShow.getViewPager2()

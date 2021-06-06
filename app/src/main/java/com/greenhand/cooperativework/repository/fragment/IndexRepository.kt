@@ -12,6 +12,6 @@ import com.greenhand.cooperativework.http.IndexNetWork
 object IndexRepository {
 
     suspend fun getIndexDiscoverBean(): IndexDiscoverBean {
-        return IndexNetWork.getIndexDiscoverResponse()
+        return IndexNetWork.getIndexDiscoverBean()
     }
 }

@@ -38,7 +38,8 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
         val slideShow = mBinding.mainSlideShow
         slideShow
             .setAdapter(fragments, this)
-            .setUserInputEnabled(userInputEnabled = false, isOpenNestedScroll = true)
+            .setUserInputEnabled(false)
+            .setOpenNestedScroll(true)
             .setOffscreenPageLimit(1)
             .setPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {

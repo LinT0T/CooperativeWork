@@ -5,10 +5,6 @@
 
     <data class="IndexDiscoverBinding">
 
-        <variable
-            name="indexDiscoverViewModel"
-            type="com.greenhand.cooperativework.viewmodel.fragment.IndexDiscoverViewModel" />
-
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -32,7 +28,7 @@
                 android:layout_marginEnd="16dp">
 
                 <com.ndhzs.slideshow.SlideShow
-                    android:id="@+id/sh_index_discover_banner"
+                    android:id="@+id/ss_index_discover_banner"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -340,8 +336,6 @@
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
-
-
 
         </androidx.core.widget.NestedScrollView>
 

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
  * @email 2767465918@qq.com
  * @data 2021/5/31
  */
-class BaseSimplifyRecyclerAdapter(
+open class BaseSimplifyRecyclerAdapter(
     private var itemCount: Int
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -31,7 +31,8 @@ class BaseSimplifyRecyclerAdapter(
      */
     fun <DB: ViewDataBinding> onBindView(@LayoutRes layoutId: Int,
                                          isInHere: (position: Int) -> Boolean,
-                                         callback: (binding: DB, holder: BindingVH, position: Int) -> Unit): BaseSimplifyRecyclerAdapter {
+                                         callback: (binding: DB, holder: BindingVH, position: Int) -> Unit
+    ): BaseSimplifyRecyclerAdapter {
         val call = BindingCallBack(
             layoutId,
             callback,
@@ -59,7 +60,8 @@ class BaseSimplifyRecyclerAdapter(
     fun <VH: RecyclerView.ViewHolder> onBindView(@LayoutRes layoutId: Int,
                                                  viewHolderClass: Class<VH>,
                                                  isInHere: (position: Int) -> Boolean,
-                                                 callback: (holder: VH, position: Int) -> Unit): BaseSimplifyRecyclerAdapter {
+                                                 callback: (holder: VH, position: Int) -> Unit
+    ): BaseSimplifyRecyclerAdapter {
         val call = CommonCallBack(
             layoutId,
             callback,
@@ -76,19 +78,61 @@ class BaseSimplifyRecyclerAdapter(
     }
 
     /**
-     * 用于改变 itemCount
+     * 用于增加 itemCount
      *
      * **NOTE：** 填入增加量
      */
-    fun addItemCount(addItemCount: Int) {
-        for (i in 1..addItemCount) {
+    fun addItemCountAndNotifyRefresh(addItemCount: Int): BaseSimplifyRecyclerAdapter {
+        for (i in itemCount until itemCount + addItemCount) {
             mLayoutIdWithCallback.forEach { layoutId, callback ->
-                if (callback.isInHere(itemCount + i)) {
-                    mPositionsWithCallback.put(itemCount + i, callback)
+                if (callback.isInHere(i)) {
+                    mPositionsWithCallback.put(i, callback)
                 }
             }
         }
         itemCount += addItemCount
+        notifyDataSetChanged()
+        return this
+    }
+
+    /**
+     * 用于减少 itemCount
+     *
+     * **NOTE：** 填入减少量
+     */
+    fun deleteItemCountAndNotifyRefresh(deleteItemCount: Int): BaseSimplifyRecyclerAdapter {
+        if (deleteItemCount > itemCount) {
+            throw IllegalAccessException("deleteItemCount is > itemCount ! ")
+        }
+        for (i in itemCount - deleteItemCount until itemCount) {
+            mPositionsWithCallback.delete(i)
+        }
+        itemCount -= deleteItemCount
+        notifyDataSetChanged()
+        return this
+    }
+
+    /**
+     * 用于改变 itemCount
+     */
+    fun changeItemCountAndNotifyRefresh(newItemCount: Int): BaseSimplifyRecyclerAdapter {
+        if (newItemCount < 0) {
+            throw IllegalAccessException("newItemCount is < 0 !")
+        }
+        if (newItemCount > itemCount) {
+            addItemCountAndNotifyRefresh(newItemCount - itemCount)
+        }else {
+            deleteItemCountAndNotifyRefresh(newItemCount - itemCount)
+        }
+        return this
+    }
+
+    /**
+     * 用于还原 itemCount
+     */
+    fun restoreItemCountAndNotifyRefresh(): BaseSimplifyRecyclerAdapter {
+        changeItemCountAndNotifyRefresh(mInitialItemCount)
+        return this
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, layoutId: Int): RecyclerView.ViewHolder {
@@ -124,6 +168,7 @@ class BaseSimplifyRecyclerAdapter(
         return 0
     }
 
+    private val mInitialItemCount = itemCount
     private val mPositionsWithCallback = SparseArray<Callback>()
     private val mLayoutIdWithCallback = SparseArray<Callback>()
 

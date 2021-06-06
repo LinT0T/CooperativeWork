@@ -2,10 +2,8 @@ package com.ndhzs.slideshow
 
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +15,6 @@ import androidx.core.view.NestedScrollingParentHelper
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.*
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -626,6 +623,9 @@ class SlideShow : CardView, NestedScrollingParent2 {
      * @see [setStartItem]
      */
     fun setCurrentItem(item: Int, smoothScroll: Boolean = true): SlideShow {
+         if (mViewPager2.isFakeDragging) {
+             mViewPager2.beginFakeDrag()
+         }
         mViewPager2.setCurrentItem(
                 if (mIsCirculateEnabled) item + 2 else item,
                 smoothScroll)
@@ -650,19 +650,26 @@ class SlideShow : CardView, NestedScrollingParent2 {
     }
 
     /**
-     * 设置是否允许用户滑动，也可认为为是否拦截滑动事件
+     * 设置是否允许用户滑动
      *
      * 设置了 false 后你将会在 SlideShow 的父 View 的 onTouchEvent 收到事件
      */
-    fun setUserInputEnabled(userInputEnabled: Boolean, isOpenNestedScroll: Boolean = false): SlideShow {
+    fun setUserInputEnabled(userInputEnabled: Boolean): SlideShow {
         mViewPager2.isUserInputEnabled = userInputEnabled
         mIsUserInputEnabled = userInputEnabled
-        mIsOpenNestedScroll = isOpenNestedScroll
         return this
     }
 
     fun getUserInputEnabled(): Boolean {
         return mIsUserInputEnabled
+    }
+
+    /**
+     * 设置是否开启同方向的嵌套滑动处理
+     */
+    fun setOpenNestedScroll(isOpenNestedScroll: Boolean): SlideShow {
+        mIsOpenNestedScroll = isOpenNestedScroll
+        return this
     }
 
     /**
@@ -884,6 +891,9 @@ class SlideShow : CardView, NestedScrollingParent2 {
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         if (!mIsOpenNestedScroll)
             return false
+        if (target == mViewPager2.getChildAt(0)) {
+            return false
+        }
         if (type == ViewCompat.TYPE_TOUCH) {
             if (getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL && axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
                 || getOrientation() == ViewPager2.ORIENTATION_VERTICAL && axes == ViewCompat.SCROLL_AXIS_VERTICAL

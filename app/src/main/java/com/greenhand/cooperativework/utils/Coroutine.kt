@@ -8,13 +8,13 @@ import androidx.lifecycle.*
  * @email 2767465918@qq.com
  * @data 2021/6/1
  */
-fun <X, Y> switchMap(source: LiveData<X>, switchMapFunction: () -> Y) = Transformations.switchMap(source) {
-    MutableLiveData(switchMapFunction())
+fun <X, Y> switchMap(source: LiveData<X>, switchMapFunction: (source: X) -> Y) = Transformations.switchMap(source) {
+    MutableLiveData(switchMapFunction(source.value!!))
 }
 
-fun <X, Y> ViewModel.switchMapLaunch(source: LiveData<X>, block: suspend () -> Y) = Transformations.switchMap(source) {
+fun <X, Y> ViewModel.switchMapLaunch(source: LiveData<X>, block: suspend (source: X) -> Y) = Transformations.switchMap(source) {
     liveData(viewModelScope.coroutineContext) {
-        val result = kotlin.runCatching { block() }.onFailure { it.message?.toast() }
+        val result = kotlin.runCatching { block(source.value!!) }.onFailure { it.message?.toast() }
         emit(result.getOrNull())
     }
 }

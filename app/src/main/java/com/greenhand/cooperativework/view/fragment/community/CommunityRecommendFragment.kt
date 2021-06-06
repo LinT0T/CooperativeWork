@@ -111,7 +111,7 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
             mImageList = it[1] as ArrayList<CommunityRecommendBean.Content>
             mVideoList = it[2] as ArrayList<CommunityRecommendBean.Content>
             //创建时count为1 每次请求回来+14个数据
-            mAdapter.addItemCount(14)
+            mAdapter.addItemCountAndNotifyRefresh(14)
 
             mAdapter
                 .onBindView(

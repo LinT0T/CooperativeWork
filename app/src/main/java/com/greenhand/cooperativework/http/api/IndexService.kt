@@ -10,7 +10,7 @@ import retrofit2.http.GET
  * @email 2767465918@qq.com
  * @data 2021/6/1
  */
-interface IndexDiscoverService {
+interface IndexService {
     @GET("v7/index/tab/discovery?udid=fa53872206ed42e3857755c2756ab683fc22d64a&vc=591&vn=6.2.1&size=720X1280&deviceModel=Che1-CL20&first_channel=eyepetizer_zhihuiyun_market&last_channel=eyepetizer_zhihuiyun_market&system_version_code=19")
-    fun getDiscover(): Call<IndexDiscoverBean>
+    fun getDiscoverBean(): Call<IndexDiscoverBean>
 }

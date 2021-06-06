@@ -74,7 +74,7 @@ class NoticeThemeFragment:Fragment(),RefreshAndLoad {
 
     private fun observeData(){
         mViewModel.tabList.observe(viewLifecycleOwner,{
-            mAdapter.addItemCount(it.size-mAdapter.itemCount)
+            mAdapter.addItemCountAndNotifyRefresh(it.size-mAdapter.itemCount)
             mAdapter
                 .onBindView<ItemNoticeThemeBinding>(
                 R.layout.item_notice_theme,

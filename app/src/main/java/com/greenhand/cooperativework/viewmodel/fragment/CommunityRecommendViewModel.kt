@@ -167,6 +167,4 @@ class CommunityRecommendViewModel : ViewModel() {
     fun setFragment(communityRecommendFragment: CommunityRecommendFragment) {
         this.communityRecommendFragment = communityRecommendFragment
     }
-
-
 }

@@ -1,6 +1,6 @@
 package com.greenhand.cooperativework.http
 
-import com.greenhand.cooperativework.http.api.IndexDiscoverService
+import com.greenhand.cooperativework.http.api.IndexService
 import retrofit2.Retrofit
 import retrofit2.await
 import retrofit2.converter.gson.GsonConverterFactory
@@ -16,6 +16,6 @@ object IndexNetWork {
         .baseUrl("http://baobab.kaiyanapp.com/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val indexDiscoverService = retrofit.create(IndexDiscoverService::class.java)
-    suspend fun getIndexDiscoverResponse() = indexDiscoverService.getDiscover().await()
+    private val indexDiscoverService = retrofit.create(IndexService::class.java)
+    suspend fun getIndexDiscoverBean() = indexDiscoverService.getDiscoverBean().await()
 }

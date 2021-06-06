@@ -48,7 +48,7 @@ class  IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Ind
     }
 
     private fun initBanner() {
-        val slideShow = mBinding.shIndexDiscoverBanner
+        val slideShow = mBinding.ssIndexDiscoverBanner
         mViewModel.banner.observe(this) { list ->
             mBinding.srlIndexDiscover.finishRefresh() // 取消刷新
             if (list != null) {
