@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <data>
+        <variable
+            name="data"
+            type="com.greenhand.cooperativework.bean.NoticeInteractionBean.Item.Data" />
+        <variable
+            name="eventHandle"
+            type="com.greenhand.cooperativework.view.fragment.notice.NoticeInteractionFragment.EventHandle" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        >
+        <androidx.cardview.widget.CardView
+            android:onClick="@{eventHandle.onClick}"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="@dimen/default_big_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    imgFromUrl="@{data.imageUrl}"
+                    android:id="@+id/interaction_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearance="@style/shapeImg_big_picture_radius" />
+
+                <TextView
+                    android:text="@{data.title}"
+                    android:textSize="18sp"
+                    android:id="@+id/interaction_title_tv"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/interaction_iv" />
+
+                <ImageView
+                    android:src="@mipmap/ic_reply"
+                    android:id="@+id/join_count_iv"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/interaction_title_tv"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
+
+                <TextView
+                    android:text="@{data.joinCount}"
+                    android:id="@+id/join_count_tv"
+                    android:textSize="12sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/join_count_iv"
+                    app:layout_constraintStart_toEndOf="@id/join_count_iv"
+                    app:layout_constraintTop_toTopOf="@+id/join_count_iv" />
+                <ImageView
+                    android:src="@mipmap/ic_default_user_icon"
+                    android:id="@+id/view_count_iv"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/join_count_tv"
+                    app:layout_constraintStart_toEndOf="@id/join_count_tv"
+                    app:layout_constraintTop_toTopOf="@+id/join_count_tv" />
+                <TextView
+                    android:text="@{data.viewCount}"
+                    android:id="@+id/view_count_tv"
+                    android:textSize="12sp"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/view_count_iv"
+                    app:layout_constraintStart_toEndOf="@id/view_count_iv"
+                    app:layout_constraintTop_toTopOf="@+id/view_count_iv" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
