@@ -1,7 +1,7 @@
 package com.greenhand.cooperativework.bean
 
 data class NoticeInteractionBean(
-    val itemList:List<Item>,
+    val itemList:ArrayList<Item>,
     val count:Int,
     val total:Int,
     val nextPageUrl:String,
