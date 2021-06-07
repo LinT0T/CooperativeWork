@@ -17,14 +17,14 @@ data class NoticeInteractionBean(
             val dataType:String,
             val id:Int,
             val title:String,
-            val joinCount:Int,
-            val viewCount:Int,
+            val joinCount:String,
+            val viewCount:String,
             val showHotSign:Boolean,
             val actionUrl:String,
             val imageUrl:String,
             val haveReward:Boolean,
             val ifNewest:Boolean,
-            val newestEndTime:Int
+            val newestEndTime:Long
         )
     }
 }

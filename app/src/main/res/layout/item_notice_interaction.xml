@@ -35,6 +35,7 @@
                 android:layout_height="match_parent">
 
                 <com.google.android.material.imageview.ShapeableImageView
+                    android:scaleType="centerCrop"
                     imgFromUrl="@{data.imageUrl}"
                     android:id="@+id/interaction_iv"
                     android:layout_width="match_parent"

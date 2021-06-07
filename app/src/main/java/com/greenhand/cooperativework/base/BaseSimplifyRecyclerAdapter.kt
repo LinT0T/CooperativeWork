@@ -122,7 +122,7 @@ open class BaseSimplifyRecyclerAdapter(
         if (newItemCount > itemCount) {
             addItemCountAndNotifyRefresh(newItemCount - itemCount)
         }else {
-            deleteItemCountAndNotifyRefresh(newItemCount - itemCount)
+            deleteItemCountAndNotifyRefresh(itemCount-newItemCount)
         }
         return this
     }

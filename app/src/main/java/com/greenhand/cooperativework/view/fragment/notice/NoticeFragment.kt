@@ -12,6 +12,7 @@ import com.greenhand.cooperativework.R
 import com.greenhand.cooperativework.adapter.NoticeFragmentAdapter
 
 class NoticeFragment : Fragment() {
+    //声明变量
     private var fragmentList=ArrayList<Fragment>()
     private var nameList= ArrayList<String>()
 
@@ -19,13 +20,6 @@ class NoticeFragment : Fragment() {
     private lateinit var viewPager2: ViewPager2
 
     private lateinit var noticeFragmentAdapter:NoticeFragmentAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,23 +31,23 @@ class NoticeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
     }
-
+    //初始化控件
     private fun initView(view: View){
+        //绑定控件
         tabLayout = view.findViewById(R.id.notice_fragment_tab_layout)
         viewPager2 = view.findViewById(R.id.notice_fragment_viewpager2)
-
+        //部署ViewPager2的adapter
         noticeFragmentAdapter = NoticeFragmentAdapter(activity,fragmentList)
-
         viewPager2.adapter = noticeFragmentAdapter
-
+        //添加fragment
         fragmentList.add(NoticeThemeFragment())
         fragmentList.add(NoticeMessageFragment())
         fragmentList.add(NoticeInteractionFragment())
-
+        //添加name
         nameList.add(getString(R.string.theme))
         nameList.add(getString(R.string.messages))
         nameList.add(getString(R.string.interaction))
-
+        //绑定tabLayout与viewPager
         TabLayoutMediator(tabLayout,viewPager2){
             tab, position ->  tab.text = nameList[position]
         }.attach()

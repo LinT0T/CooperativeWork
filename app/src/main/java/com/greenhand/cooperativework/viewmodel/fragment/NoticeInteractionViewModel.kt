@@ -1,6 +1,7 @@
 package com.greenhand.cooperativework.viewmodel.fragment
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.greenhand.cooperativework.bean.NoticeInteractionBean
@@ -19,6 +20,8 @@ class NoticeInteractionViewModel:ViewModel() {
     private var num = 10
     private var mLoadMode = FIRST_LOAD_MODE
 
+    val mutableItemList by lazy{ MutableLiveData<ArrayList<NoticeInteractionBean.Item>>() }
+
     fun setRefreshAndLoadTarget(refreshAndLoad: RefreshAndLoad){
         mRefreshAndLoadTarget = refreshAndLoad
     }
@@ -29,11 +32,14 @@ class NoticeInteractionViewModel:ViewModel() {
             mLoadMode = FIRST_LOAD_MODE
         else
             mLoadMode = loadMode
+        if(mLoadMode == REFRESH_MODE){
+            start = 0
+        }
         //使用OkHttpClient请求数据
         val client = OkHttpClient()
         val mUrl =
             HttpUrl.
-            parse(NoticeApi.themeUrl)?.
+            parse(NoticeApi.interactionUrl)?.
             newBuilder()?.
             setQueryParameter("start",start.toString())?.
             setQueryParameter("num",num.toString())?.
@@ -60,34 +66,37 @@ class NoticeInteractionViewModel:ViewModel() {
         val itemList = noticeInteractionBean.itemList
         val nextPageUrl = noticeInteractionBean.nextPageUrl
         mInteractionBean = noticeInteractionBean
-        mItemList = itemList
         mNextPageUrl = nextPageUrl
         if(mLoadMode == FIRST_LOAD_MODE){
             mItemList = itemList
+            start += num
+            postData()
         }
         else if(mLoadMode == LOAD_MORE_MODE){
             mItemList.addAll(itemList)
             mRefreshAndLoadTarget.finishLoad()
+            start += num
+            postData()
         }
         else if(mLoadMode == REFRESH_MODE){
             mItemList = itemList
             mRefreshAndLoadTarget.finishRefresh()
+            start += num
+            postData()
         }
         else{
             Log.e("fun handleData","错误的加载模式。\n")
         }
     }
 
+    private fun postData(){mutableItemList.postValue(mItemList)}
+
     fun setLoadingParam(start:Int?,num:Int?){
         if(start != null && start >=0){
             this.start = start
         }
-        else
-            Log.e("setLoadingParam","start参数格式错误。应为正整数。")
         if(num != null && num >0)
             this.num = num
-        else
-            Log.e("setLoadingParam","num参数格式错误。应为正整数。")
     }
 
     companion object{
