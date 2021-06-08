@@ -16,7 +16,6 @@ import com.bumptech.glide.request.transition.Transition
  */
 @BindingAdapter("imgFromUrl")
 fun ImageView.imgFromUr(url: String?) {
-    this.alpha = 0F
     Glide
         .with(this)
         .load(url)
