@@ -624,7 +624,7 @@ class SlideShow : CardView, NestedScrollingParent2 {
      */
     fun setCurrentItem(item: Int, smoothScroll: Boolean = true): SlideShow {
          if (mViewPager2.isFakeDragging) {
-             mViewPager2.beginFakeDrag()
+             mViewPager2.endFakeDrag()
          }
         mViewPager2.setCurrentItem(
                 if (mIsCirculateEnabled) item + 2 else item,
