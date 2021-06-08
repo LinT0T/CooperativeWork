@@ -14,8 +14,8 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        >
+        android:layout_width="match_parent">
+
         <androidx.cardview.widget.CardView
             android:onClick="@{eventHandle.onClick}"
             app:cardElevation="3dp"
@@ -30,6 +30,7 @@
             android:layout_marginEnd="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -67,7 +68,8 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/interaction_title_tv"
                     android:layout_width="32dp"
-                    android:layout_height="32dp"/>
+                    android:layout_height="32dp"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:text="@{data.joinCount}"
@@ -79,6 +81,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/join_count_iv"
                     app:layout_constraintStart_toEndOf="@id/join_count_iv"
                     app:layout_constraintTop_toTopOf="@+id/join_count_iv" />
+
                 <ImageView
                     android:src="@mipmap/ic_default_user_icon"
                     android:id="@+id/view_count_iv"
@@ -87,7 +90,9 @@
                     android:layout_height="32dp"
                     app:layout_constraintBottom_toBottomOf="@+id/join_count_tv"
                     app:layout_constraintStart_toEndOf="@id/join_count_tv"
-                    app:layout_constraintTop_toTopOf="@+id/join_count_tv" />
+                    app:layout_constraintTop_toTopOf="@+id/join_count_tv"
+                    tools:ignore="ContentDescription" />
+
                 <TextView
                     android:text="@{data.viewCount}"
                     android:id="@+id/view_count_tv"
@@ -98,8 +103,8 @@
                     app:layout_constraintBottom_toBottomOf="@+id/view_count_iv"
                     app:layout_constraintStart_toEndOf="@id/view_count_iv"
                     app:layout_constraintTop_toTopOf="@+id/view_count_iv" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

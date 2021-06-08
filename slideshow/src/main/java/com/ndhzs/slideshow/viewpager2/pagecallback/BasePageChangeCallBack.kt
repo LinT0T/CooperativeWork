@@ -85,6 +85,7 @@ internal class BasePageChangeCallBack(
     override fun onPageScrollStateChanged(state: Int) {
         when (state) {
             ViewPager2.SCROLL_STATE_IDLE -> {
+
                 if (mItemCount != 1) {
                     if (mPositionFloat <= 1) {
                         viewPager2.setCurrentItem(mPositionFloat.toInt() + mItemCount - 4, false)

@@ -906,12 +906,14 @@ class SlideShow : CardView, NestedScrollingParent2 {
 
     override fun onNestedScrollAccepted(child: View, target: View, axes: Int, type: Int) {
         mParentHelper.onNestedScrollAccepted(child, target, axes, type)
+        mViewPager2.isUserInputEnabled = false
         mViewPager2.beginFakeDrag()
     }
 
     override fun onStopNestedScroll(target: View, type: Int) {
         mParentHelper.onStopNestedScroll(target, type)
         mViewPager2.endFakeDrag()
+        mViewPager2.isUserInputEnabled = true
     }
 
     override fun onNestedScroll(

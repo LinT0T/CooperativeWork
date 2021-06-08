@@ -99,7 +99,7 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
                 mRecyclerView.adapter = mAdapter
                 //绑定数据
                 mAdapter.onBindView<ItemCommunityFollowBinding>(R.layout.item_community_follow,
-                    { position -> true },
+                    { true },
                     { binding, holder, position ->
                         /**
                          * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置

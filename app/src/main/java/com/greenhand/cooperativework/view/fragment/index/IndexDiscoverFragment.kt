@@ -149,7 +149,7 @@ class  IndexDiscoverFragment : BaseBindingVMFragment<IndexDiscoverViewModel, Ind
                 val adapter = rvRankList.adapter
                 if (adapter != null) {
                     adapter.notifyDataSetChanged()
-                } else {
+                }else {
                     rvRankList.layoutManager = LinearLayoutManager(context)
                     rvRankList
                         .adapter = BaseSimplifyRecyclerAdapter(it.size)

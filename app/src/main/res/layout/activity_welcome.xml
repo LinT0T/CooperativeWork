@@ -32,7 +32,7 @@
                 android:layout_gravity="center"
                 android:alpha="0"
                 android:scaleType="centerCrop"
-                app:imgFromUrl="@{welcomeViewModel.imgUrl}"
+                imgFromUrl="@{welcomeViewModel.imgUrl}"
                 tools:ignore="ContentDescription" />
 
         </FrameLayout>

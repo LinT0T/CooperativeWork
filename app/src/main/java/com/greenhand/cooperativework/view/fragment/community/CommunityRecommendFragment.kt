@@ -27,9 +27,7 @@ import com.greenhand.cooperativework.view.activity.VideoDetailsActivity
 import com.greenhand.cooperativework.view.fragment.RefreshAndLoad
 import com.greenhand.cooperativework.viewmodel.fragment.CommunityRecommendViewModel
 import com.ndhzs.slideshow.SlideShow
-import com.ndhzs.slideshow.viewpager2.transformer.AlphaPageTransformer
 import com.ndhzs.slideshow.viewpager2.transformer.ScaleInTransformer
-import com.ndhzs.slideshow.viewpager2.transformer2.BackgroundToForegroundTransformer
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import java.util.*
 
@@ -37,7 +35,6 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
     private lateinit var mCommunityImageListView: RecyclerView
     private lateinit var mSmartRefreshLayout: SmartRefreshLayout
     private lateinit var mGridLayoutManager: GridLayoutManager
-    private lateinit var mAdapter: BaseSimplifyRecyclerAdapter
     private var mSlideShowList = ArrayList<CommunityFirstRecommendBean.ItemX>()
     private var mImageList = ArrayList<CommunityRecommendBean.Content>()
     private var mVideoList = ArrayList<CommunityRecommendBean.Content>()
@@ -84,9 +81,6 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
         }
         mCommunityImageListView.layoutManager = mGridLayoutManager
 
-        //itemCount每一周期为6个图片+1个视频+6个图片+1个视频 首次仅创建1个banner的count observeData()中会每次请求使count+14
-        mAdapter = BaseSimplifyRecyclerAdapter(1)
-
         //配置加载
         mSmartRefreshLayout = view.findViewById(R.id.rl_recommend)
         //设置加载更多
@@ -96,7 +90,6 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
         //设置下拉刷新
         mSmartRefreshLayout.setOnRefreshListener {
             //刷新则重新创建adapter
-            mAdapter = BaseSimplifyRecyclerAdapter(1)
             startLoadData()
         }
     }
@@ -106,62 +99,65 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
     }
 
     private fun observeData() {
-        mViewModel.recommendList.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        mViewModel.recommendList.observe(viewLifecycleOwner) {
             mSlideShowList = it[0] as ArrayList<CommunityFirstRecommendBean.ItemX>
             mImageList = it[1] as ArrayList<CommunityRecommendBean.Content>
             mVideoList = it[2] as ArrayList<CommunityRecommendBean.Content>
-            //创建时count为1 每次请求回来+14个数据
-            mAdapter.addItemCountAndNotifyRefresh(14)
 
-            mAdapter
-                .onBindView(
-                    R.layout.item_community_banner,
-                    SlideShowHolder::class.java,
-                    { position -> position == 0 },
-                    { holder, position ->
-                        initSlideShow(holder)
-                    })
-                .onBindView<ItemCommunityImageBinding>(R.layout.item_community_image,
-                    { position -> position != 0 && position % 7 != 0 },
-                    { binding, holder, position ->
-                        /**
-                         * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置
-                         * 此时因为未知原因 onBindView会被重复调用多次
-                         * 所以可能会发生这样的情况:
-                         * 刷新时mImageList被clear了 而此时onBindView正在被调用 导致获取不到数据
-                         * 因此进行mImageList.size>0的判断
-                         * 151行同理
-                         */
-                        if (mImageList.size > 0) {
-                            //绑定图片相关数据
-                            binding.content = mImageList[position - 1 - position / 7]
-                            //绑定点击事件
-                            binding.eventHandle =
-                                EventHandle(mImageList[position - 1 - position / 7])
-                        }
-                    })
-                .onBindView<ItemCommunityVideoBindingImpl>(R.layout.item_community_video,
-                    { position -> position != 0 && position % 7 == 0 },
-                    { binding, holder, position ->
-                        if (mVideoList.size > 0) {
-                            binding.content = mVideoList[position / 7 - 1]
-                            binding.eventHandle = EventHandle(mVideoList[position / 7 - 1])
-                            // 单独处理视频发布时间
-                            val time: TextView =
-                                holder.itemView.findViewById(R.id.tv_release_time)
-                            val data = Date()
-                            data.time = mVideoList[position / 7 - 1].data.releaseTime
-                            time.text = TimeUtil.getTime(data)
-                        }
-                    })
-
-            //若adapter中itemCount数量满足最初页的count 即15 则初始化recyclerView中的adapter
-            if (mAdapter.itemCount == 15) {
-                mCommunityImageListView.adapter = mAdapter
+            val adapter = mCommunityImageListView.adapter
+            if (adapter != null) {
+                //创建时count为1 每次请求回来+14个数据
+                (adapter as BaseSimplifyRecyclerAdapter)
+                    .addItemCountAndNotifyRefresh(14)
+            }else {
+                mCommunityImageListView
+                    .adapter = BaseSimplifyRecyclerAdapter(15)
+                    .onBindView(
+                        R.layout.item_community_banner,
+                        SlideShowHolder::class.java,
+                        { position -> position == 0 },
+                        { holder, position ->
+                            Log.d("123","(CommunityRecommendFragment.kt:125)-->> position = $position")
+                            initSlideShow(holder)
+                        })
+                    .onBindView<ItemCommunityImageBinding>(R.layout.item_community_image,
+                        { position -> position % 7 != 0 },
+                        { binding, holder, position ->
+                            /**
+                             * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置
+                             * 此时因为未知原因 onBindView会被重复调用多次
+                             * 所以可能会发生这样的情况:
+                             * 刷新时mImageList被clear了 而此时onBindView正在被调用 导致获取不到数据
+                             * 因此进行mImageList.size>0的判断
+                             * 151行同理
+                             */
+                            if (mImageList.size > 0) {
+                                //绑定图片相关数据
+                                binding.content = mImageList[position - 1 - position / 7]
+                                //绑定点击事件
+                                binding.eventHandle =
+                                    EventHandle(mImageList[position - 1 - position / 7])
+                            }
+                        })
+                    .onBindView<ItemCommunityVideoBindingImpl>(R.layout.item_community_video,
+                        { position -> position != 0 && position % 7 == 0 },
+                        { binding, holder, position ->
+                            if (mVideoList.size > 0) {
+                                binding.content = mVideoList[position / 7 - 1]
+                                binding.eventHandle = EventHandle(mVideoList[position / 7 - 1])
+                                // 单独处理视频发布时间
+                                val time: TextView =
+                                    holder.itemView.findViewById(R.id.tv_release_time)
+                                val data = Date()
+                                data.time = mVideoList[position / 7 - 1].data.releaseTime
+                                time.text = TimeUtil.getTime(data)
+                            }
+                        })
             }
-        })
+        }
     }
 
+    private var mIsFirstLoadSlidShow = true
     private fun initSlideShow(slideShowHolder: SlideShowHolder) {
         val slideShow = slideShowHolder.slideShow
         val imagePath = ArrayList<String>()
@@ -170,26 +166,18 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
             imagePath.add(mSlideShowList[1].data.image)
             imagePath.add(mSlideShowList[2].data.image)
         }
-//        slideShow.addTransformer(ScaleInTransformer()) // 设置移动动画
-//            .addTransformer(AlphaPageTransformer())
-//            .setAutoSlideEnabled(true) // 开启自动滑动
-//            .setDelayTime(5000) // 设置自动滚动时间，但目前还没有实现自动滚动
-//            .setTimeInterpolator(AccelerateDecelerateInterpolator())
-//            .setAdapter(imagePath) { data, imageView, holder, position ->
-//                Glide.with(imageView)
-//                    .load(data)
-//                    .into(imageView)
-//            }
-        if (slideShow.getViewPager2().adapter != null) {
-            slideShow.notifyImgDataChange(imagePath)
-        } else {
+        if (mIsFirstLoadSlidShow) {
+            mIsFirstLoadSlidShow = false
             slideShow
                 .addTransformer(ScaleInTransformer())
                 .setAutoSlideEnabled(true)
                 .setDelayTime(5000)
                 .setTimeInterpolator(AccelerateDecelerateInterpolator())
                 .setAdapter(imagePath) { data, imageView, holder, position ->
-                    Glide.with(this).load(data).into(imageView)
+                    Glide
+                        .with(this)
+                        .load(data)
+                        .into(imageView)
                 }
         }
     }
