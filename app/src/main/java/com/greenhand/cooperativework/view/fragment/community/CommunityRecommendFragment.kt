@@ -117,7 +117,6 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
                         SlideShowHolder::class.java,
                         { position -> position == 0 },
                         { holder, position ->
-                            Log.d("123","(CommunityRecommendFragment.kt:125)-->> position = $position")
                             initSlideShow(holder)
                         })
                     .onBindView<ItemCommunityImageBinding>(R.layout.item_community_image,

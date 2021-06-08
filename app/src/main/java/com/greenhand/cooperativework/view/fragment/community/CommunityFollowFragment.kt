@@ -101,6 +101,7 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
                 mAdapter.onBindView<ItemCommunityFollowBinding>(R.layout.item_community_follow,
                     { true },
                     { binding, holder, position ->
+                        Log.d("123","(CommunityFollowFragment.kt:104)-->> =============== position = $position")
                         /**
                          * 由于 刷新时是下拉 屏幕位置会因为拉动回到第0个item 也就是初始位置
                          * 此时因为未知原因 onBindView会被重复调用多次

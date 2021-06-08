@@ -33,17 +33,6 @@ abstract class BaseActivity(
 
 ) : AppCompatActivity() {
 
-    companion object {
-        /**
-         * 状态栏的高度
-         *
-         * 因为实现了沉浸式状态栏，所以状态栏会有高度空缺，需要自己使用 View 来补充，
-         * 我（郭祥瑞）已经在 activity_main 中填充了一个 View 来占位
-         */
-        var STATUS_BAR_HEIGHT = 0
-    }
-
-
     @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,12 +64,6 @@ abstract class BaseActivity(
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 decorView.systemUiVisibility =  View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or option
             }
-        }
-
-        //让view空出状态栏高度
-        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
-        if (resourceId > 0) {
-            STATUS_BAR_HEIGHT = resources.getDimensionPixelSize(resourceId)
         }
         window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
     }

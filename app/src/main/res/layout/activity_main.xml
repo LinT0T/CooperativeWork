@@ -13,9 +13,9 @@
         tools:context=".view.activity.MainActivity">
 
         <!--下面这个 View 是模拟状态栏占位-->
-        <View
+        <com.greenhand.cooperativework.weight.StatusBar
             android:id="@+id/main_statusBar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="25dp"
             android:background="@color/default_white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -24,12 +24,14 @@
 
         <com.ndhzs.slideshow.SlideShow
             android:id="@+id/main_slideShow"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/main_nav_view"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_statusBar" />
+            app:layout_constraintTop_toBottomOf="@+id/main_statusBar"
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:layout_width="match_parent"

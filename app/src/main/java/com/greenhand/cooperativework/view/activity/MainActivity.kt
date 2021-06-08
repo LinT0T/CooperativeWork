@@ -16,16 +16,7 @@ import com.greenhand.cooperativework.view.fragment.notice.NoticeFragment
 class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 
     override fun init() {
-        initStatusBar()
         initNavigation()
-    }
-
-    private fun initStatusBar() { // 用一个单独的 View 来占状态栏的高度
-        val statusBar = mBinding.mainStatusBar
-        if (STATUS_BAR_HEIGHT != 0) {
-            val params = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, STATUS_BAR_HEIGHT)
-            statusBar.layoutParams = params
-        }
     }
 
     private fun initNavigation() {

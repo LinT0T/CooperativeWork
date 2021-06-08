@@ -8,7 +8,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tl_community"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,12 +19,13 @@
         app:tabPaddingEnd="30dp"
         app:tabSelectedTextColor="#EF3C2F" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/vp_community"
-        android:layout_width="match_parent"
+    <com.ndhzs.slideshow.SlideShow
+        android:id="@+id/ss_community"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tl_community" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
