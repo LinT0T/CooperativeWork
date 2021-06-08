@@ -64,9 +64,8 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
         mAdapter = BaseSimplifyRecyclerAdapter(0)
         //设置刷新/加载监听
         mSmartRefreshLayout.setOnRefreshListener {
-            //刷新时创建新adapter
-            mAdapter = BaseSimplifyRecyclerAdapter(0)
-            mRecyclerView.adapter = mAdapter
+            //刷新时修改item数量为初始值0
+            mAdapter.deleteItemCountAndNotifyRefresh(mAdapter.itemCount)
             //因为关注视频是固定的 所以刷新即重新获取第一页的视频
             start = 0
             startLoadData()
@@ -89,10 +88,6 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
 
             //创建时count为0 每次请求回来+10个数据
             mAdapter.addItemCountAndNotifyRefresh(10)
-            /**
-             * 注意第68 69行 下拉刷新时会调用 修改时要考虑到这里
-             */
-
 
             //若recyclerView中adapter未被初始化 则初始化
             if (mRecyclerView.adapter == null) {
@@ -109,10 +104,9 @@ class CommunityFollowFragment : Fragment(), RefreshAndLoad {
                          * 刷新时mFollowVideoList被clear了 而此时onBindView正在被调用 导致获取不到数据
                          * 因此进行mFollowVideoList.size>0的判断
                          */
-                        if (mFollowVideoList.size>0){
+                        if (mFollowVideoList.size > 0) {
                             binding.content = mFollowVideoList[position].content
                             binding.eventHandle = EventHandle(mFollowVideoList[position].content)
-
                             // 单独处理视频发布时间
                             val time = holder.itemView.findViewById<TextView>(R.id.tv_time)
                             val data = Date()
