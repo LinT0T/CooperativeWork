@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.fragment.notice.NoticeFragment"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.tabs.TabLayout
-        app:tabGravity="center"
-        app:tabIndicatorHeight="4dp"
-        app:tabMode="scrollable"
-        app:tabPaddingStart="30dp"
-        app:tabPaddingEnd="30dp"
-        app:tabIndicatorColor="#000000"
-        app:tabSelectedTextColor="#000000"
-        android:id="@+id/notice_fragment_tab_layout"
+    <data>
+
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.notice.NoticeFragment"
+        android:orientation="vertical">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/notice_fragment_viewpager2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <com.google.android.material.tabs.TabLayout
+            app:tabGravity="center"
+            app:tabIndicatorHeight="4dp"
+            app:tabMode="scrollable"
+            app:tabPaddingStart="30dp"
+            app:tabPaddingEnd="30dp"
+            app:tabIndicatorColor="#000000"
+            app:tabSelectedTextColor="#000000"
+            android:id="@+id/tl_notice"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <com.ndhzs.slideshow.SlideShow
+            android:id="@+id/ss_notice"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

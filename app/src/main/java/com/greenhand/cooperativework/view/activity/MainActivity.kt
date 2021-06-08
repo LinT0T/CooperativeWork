@@ -2,7 +2,6 @@ package com.greenhand.cooperativework.view.activity
 
 import android.view.KeyEvent
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,8 +27,7 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
         val navView = mBinding.mainNavView
         val slideShow = mBinding.mainSlideShow
         slideShow
-            .setAdapter(fragments, this)
-            .setUserInputEnabled(false)
+            .setAdapter(this, fragments)
             .setOpenNestedScroll(true)
             .setOffscreenPageLimit(1)
             .setPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

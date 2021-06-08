@@ -216,20 +216,20 @@ class SlideShow : CardView, NestedScrollingParent2 {
      * **NOTICE：** 使用该方法可能意为着你需要自动滑动，请使用 [setAutoSlideEnabled]
      */
     fun <T> setAdapter(
-            datas: List<T>,
-            onBindImageView:
+        datas: List<T>,
+        onBindImageView:
             (data: T,
              imageView: ShapeableImageView,
              holder: BaseImgAdapter.BaseImgViewHolder,
              position: Int
-            ) -> Unit
+        ) -> Unit
     ): SlideShow {
         val adapter = object : BaseImgAdapter<T>() {
             override fun onBindImageView(
-                    data: T,
-                    imageView: ShapeableImageView,
-                    holder: BaseImgViewHolder,
-                    position: Int
+                data: T,
+                imageView: ShapeableImageView,
+                holder: BaseImgViewHolder,
+                position: Int
             ) {
                 onBindImageView.invoke(data, imageView, holder, position)
             }
@@ -242,16 +242,16 @@ class SlideShow : CardView, NestedScrollingParent2 {
      *
      * 该方法简写了创建 FragmentStateAdapter 的过程，传入数据后会自动帮你设置 FragmentStateAdapter
      */
-    fun setAdapter(fragments: List<Fragment>, fragmentActivity: FragmentActivity): SlideShow {
+    fun setAdapter(fragmentActivity: FragmentActivity, fragments: List<Fragment>): SlideShow {
         if (mIsAutoSlideEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
-                            "The adapter does not support automatic sliding!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
+                        "The adapter does not support automatic sliding!")
         }
         if (mIsCirculateEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
-                            "The adapter does not support circular presentation!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
+                        "The adapter does not support circular presentation!")
         }
         val adapter = object : BaseFragmentStateAdapter(fragmentActivity, fragments) {}
         mViewPager2.adapter = adapter
@@ -264,13 +264,13 @@ class SlideShow : CardView, NestedScrollingParent2 {
     fun setAdapter(fragmentAdapter: FragmentStateAdapter): SlideShow {
         if (mIsAutoSlideEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
-                            "The adapter does not support automatic sliding!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
+                        "The adapter does not support automatic sliding!")
         }
         if (mIsCirculateEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
-                            "The adapter does not support circular presentation!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
+                        "The adapter does not support circular presentation!")
         }
         mViewPager2.adapter = fragmentAdapter
         return this
@@ -285,13 +285,13 @@ class SlideShow : CardView, NestedScrollingParent2 {
     fun setAdapter(adapter: RecyclerView.Adapter<out RecyclerView.ViewHolder>): SlideShow {
         if (mIsAutoSlideEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
-                            "The adapter does not support automatic sliding!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
+                        "The adapter does not support automatic sliding!")
         }
         if (mIsCirculateEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
-                            "The adapter does not support circular presentation!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
+                        "The adapter does not support circular presentation!")
         }
         mViewPager2.adapter = adapter
         return this
@@ -305,13 +305,13 @@ class SlideShow : CardView, NestedScrollingParent2 {
     fun setAdapter(adapter: BaseRecyclerAdapter<out RecyclerView.ViewHolder>): SlideShow {
         if (mIsAutoSlideEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
-                            "The adapter does not support automatic sliding!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、setAutoSlideEnabled(): " +
+                        "The adapter does not support automatic sliding!")
         }
         if (mIsCirculateEnabled) {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
-                            "The adapter does not support circular presentation!")
+                "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
+                        "The adapter does not support circular presentation!")
         }
         mViewPager2.adapter = adapter
         return this
@@ -332,8 +332,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
             adapter.setImgRefreshListener(position, condition, l)
         }else {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#notifyImageViewRefresh(): " +
-                            "The adapter is not BaseImgAdapter, so you can't use function of notifyImageViewRefresh!")
+                "Your ${SlideShowAttrs.Library_name}#notifyImageViewRefresh(): " +
+                        "The adapter is not BaseImgAdapter, so you can't use function of notifyImageViewRefresh!")
         }
     }
 
@@ -352,8 +352,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
             adapter.setRefreshListener(position, condition, l)
         }else {
             throw IllegalAccessException(
-                    "Your ${SlideShowAttrs.Library_name}#notifyRefresh(): " +
-                            "The adapter is not BaseRecyclerAdapter, so you can't use function of notifyRefresh!")
+                "Your ${SlideShowAttrs.Library_name}#notifyRefresh(): " +
+                        "The adapter is not BaseRecyclerAdapter, so you can't use function of notifyRefresh!")
         }
     }
 
@@ -426,8 +426,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
             if (adapter != null) {
                 if (adapter !is BaseImgAdapter<*>) {
                     throw IllegalAccessException(
-                            "Your ${SlideShowAttrs.Library_name}#setAutoSlideEnabled(): " +
-                                    "The adapter does not support automatic sliding!")
+                        "Your ${SlideShowAttrs.Library_name}#setAutoSlideEnabled(): " +
+                                "The adapter does not support automatic sliding!")
                 }
             }
             openCirculateEnabled()
@@ -468,8 +468,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
                 }
             }else {
                 throw IllegalAccessException(
-                        "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
-                                "The adapter does not support circular presentation!")
+                    "Your ${SlideShowAttrs.Library_name}#setAdapter()、 openCirculateEnabled(): " +
+                            "The adapter does not support circular presentation!")
             }
         }
         mIsCirculateEnabled = true
@@ -623,12 +623,9 @@ class SlideShow : CardView, NestedScrollingParent2 {
      * @see [setStartItem]
      */
     fun setCurrentItem(item: Int, smoothScroll: Boolean = true): SlideShow {
-         if (mViewPager2.isFakeDragging) {
-             mViewPager2.endFakeDrag()
-         }
         mViewPager2.setCurrentItem(
-                if (mIsCirculateEnabled) item + 2 else item,
-                smoothScroll)
+            if (mIsCirculateEnabled) item + 2 else item,
+            smoothScroll)
         return this
     }
 
@@ -739,8 +736,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
 
     private fun initViewPager2() {
         mViewPager2.layoutParams = LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
         )
         mViewPager2.registerOnPageChangeCallback(mPageChangeCallback)
         mViewPager2.orientation = mAttrs.orientation
@@ -804,8 +801,8 @@ class SlideShow : CardView, NestedScrollingParent2 {
         }
         if (isError) {
             throw IndexOutOfBoundsException(
-                    "Your ${SlideShowAttrs.Library_name}#slowlySlide(): " +
-                            "The $positionMessage is < 0 or >= itemCount")
+                "Your ${SlideShowAttrs.Library_name}#slowlySlide(): " +
+                        "The $positionMessage is < 0 or >= itemCount")
         }
     }
 
@@ -827,25 +824,25 @@ class SlideShow : CardView, NestedScrollingParent2 {
             mPreFakeDrag = nowFakeDrag
         }
         mAnimator.addListener(
-                onStart = {
-                    mViewPager2.beginFakeDrag()
-                    mViewPager2.isUserInputEnabled = false
-                },
-                onEnd = {
-                    mViewPager2.endFakeDrag()
-                    mViewPager2.isUserInputEnabled = true
-                },
-                onCancel = {
-                    mViewPager2.endFakeDrag()
-                    mViewPager2.isUserInputEnabled = true
-                }
+            onStart = {
+                mViewPager2.beginFakeDrag()
+                mViewPager2.isUserInputEnabled = false
+            },
+            onEnd = {
+                mViewPager2.endFakeDrag()
+                mViewPager2.isUserInputEnabled = true
+            },
+            onCancel = {
+                mViewPager2.endFakeDrag()
+                mViewPager2.isUserInputEnabled = true
+            }
         )
         mAnimator.interpolator = interpolator
         mAnimator.duration = duration
         mAnimator.start()
     }
 
-    private var mInitialX =0
+    private var mInitialX = 0
     private var mInitialY = 0
     private var mIsCirculateEnabled = false
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
@@ -855,20 +852,30 @@ class SlideShow : CardView, NestedScrollingParent2 {
             if (mViewPager2.adapter is BaseImgAdapter<*>) {
                 when (ev.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        mInitialX = x
-                        mInitialY = y
                         stop()
-                    }
-                    MotionEvent.ACTION_MOVE -> {
-                        if (abs(y - mInitialY) < abs(x - mInitialX)) {
-                            requestDisallowInterceptTouchEvent(true)
-                        }
                     }
                     MotionEvent.ACTION_UP -> {
                         start()
                     }
                     MotionEvent.ACTION_CANCEL -> {
                         start()
+                    }
+                }
+            }
+            when (ev.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    mInitialX = x
+                    mInitialY = y
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if (getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
+                        if (abs(y - mInitialY) < abs(x - mInitialX)) {
+                            requestDisallowInterceptTouchEvent(true)
+                        }
+                    }else {
+                        if (abs(y - mInitialY) > abs(x - mInitialX)) {
+                            requestDisallowInterceptTouchEvent(true)
+                        }
                     }
                 }
             }
@@ -887,17 +894,20 @@ class SlideShow : CardView, NestedScrollingParent2 {
         mRunnableManger.destroy()
     }
 
+    private var mIsParentOpenNestedScroll = false
     private var mIsOpenNestedScroll = false
     override fun onStartNestedScroll(child: View, target: View, axes: Int, type: Int): Boolean {
         if (!mIsOpenNestedScroll)
             return false
-        if (target == mViewPager2.getChildAt(0)) {
+        if (target == mViewPager2.getChildAt(0))
             return false
-        }
         if (type == ViewCompat.TYPE_TOUCH) {
             if (getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL && axes == ViewCompat.SCROLL_AXIS_HORIZONTAL
                 || getOrientation() == ViewPager2.ORIENTATION_VERTICAL && axes == ViewCompat.SCROLL_AXIS_VERTICAL
             ) {
+                // 以下代码用于三层嵌套 SlideShow 时，底层 SlideShow（ss1） 只能唤起上一层的 SlideShow（ss2），
+                // 而存在这种情况：ss2 已经滑到底了，ss1 需要使 ss3 滑动，在这种情况下就需要手动开启
+                mIsParentOpenNestedScroll = mViewPager2.getChildAt(0).startNestedScroll(axes)
                 return true
             }
         }
@@ -910,9 +920,30 @@ class SlideShow : CardView, NestedScrollingParent2 {
         mViewPager2.beginFakeDrag()
     }
 
+    /**
+     * 官方是在 onInterceptTouchEvent 中 Down 时调用的 onStartNestedScroll，
+     * 但是经测试 ViewPager2 在滑动时可能调用了 requestDisallowInterceptTouchEvent
+     * 用来禁止父 View 拦截滑动，于是就会出现父 View 调用了 onStartNestedScroll，却因为
+     * onInterceptTouchEvent 被取消而无法在 Up 中调用 onStopNestedScroll
+     * 去取消嵌套滑动。
+     *
+     * 所以在三层及以上的 SlideShow 嵌套，而顶部两层需要开启嵌套滑动时，需要手动调用
+     * mViewPager2.getChildAt(0).stopNestedScroll() 去关闭被 requestDisallowInterceptTouchEvent
+     * 的父 View 的 NestedScroll。
+     *
+     * 比如：从外到内共三层，分别为 s1、s2、s3，  s1 和 s2 需要开启嵌套滑动，我在滑动 s3 时，s3 的
+     * onInterceptTouchEvent 的 Down 事件就开启了 s1 和 s2 的 onStartNestedScroll（s1 是由 s2
+     * 的 Down 开启的，s2 是由 s3 的 Down 开启的），然后 s1 和 s2 的 onInterceptTouchEvent 就被
+     * s3 取消，在 s3 的 onInterceptTouchEvent 调用 Up 时，只有 s2 的 onStopNestedScroll 被调用，
+     * s1 的 onStopNestedScroll 必须由 s2 才能调用，但 s2 的 onInterceptTouchEvent 被取消，所以
+     * s1 的 onStopNestedScroll 不会被调用
+     */
     override fun onStopNestedScroll(target: View, type: Int) {
         mParentHelper.onStopNestedScroll(target, type)
         mViewPager2.endFakeDrag()
+        if (mIsParentOpenNestedScroll) {
+            mViewPager2.getChildAt(0).stopNestedScroll()
+        }
         mViewPager2.isUserInputEnabled = true
     }
 

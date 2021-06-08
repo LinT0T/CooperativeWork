@@ -21,8 +21,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:tabIndicatorHeight="0dp"
             app:tabMode="scrollable"
-            app:tabPaddingStart="30dp"
-            app:tabPaddingEnd="30dp"
             app:tabSelectedTextColor="#EF3C2F" />
 
         <com.ndhzs.slideshow.SlideShow
