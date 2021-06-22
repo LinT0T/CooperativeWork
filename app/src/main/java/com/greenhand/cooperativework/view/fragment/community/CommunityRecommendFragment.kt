@@ -89,7 +89,8 @@ class CommunityRecommendFragment : Fragment(), RefreshAndLoad {
         }
         //设置下拉刷新
         mSmartRefreshLayout.setOnRefreshListener {
-            //刷新则重新创建adapter
+            //刷新时修改item数量为初始值0
+            (mCommunityImageListView.adapter as BaseSimplifyRecyclerAdapter).deleteItemCountAndNotifyRefresh((mCommunityImageListView.adapter as BaseSimplifyRecyclerAdapter).itemCount)
             startLoadData()
         }
     }
