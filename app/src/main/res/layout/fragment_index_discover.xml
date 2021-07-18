@@ -37,7 +37,8 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:slide_outPageInterval="@dimen/community_parent_left_right"
                     app:slide_adjacentPageInterval="2dp"
-                    app:slide_imgRadius="12dp" />
+                    app:slide_imgRadius="12dp"
+                    app:indicators_style="normal"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"

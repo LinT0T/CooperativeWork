@@ -25,7 +25,6 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class CommunityFollowFragment : Fragment(), RefreshAndLoad {
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var mSmartRefreshLayout: SmartRefreshLayout

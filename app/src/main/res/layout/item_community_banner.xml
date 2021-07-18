@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:slide_outPageInterval="@dimen/community_parent_left_right"
         app:slide_adjacentPageInterval="8dp"
-        app:slide_imgRadius="12dp"/>
+        app:slide_imgRadius="12dp"
+        app:indicators_style="normal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

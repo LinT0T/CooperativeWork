@@ -27,14 +27,13 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
         val navView = mBinding.mainNavView
         val slideShow = mBinding.mainSlideShow
         slideShow
-            .setAdapter(this, fragments)
-            .setOpenNestedScroll(true)
             .setOffscreenPageLimit(1)
             .setPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     navView.menu.getItem(position).isChecked = true
                 }
             })
+            .setAdapter(this, fragments)
 
         navView.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {

@@ -21,10 +21,10 @@ class IndexFragment : BaseOnlyBindingFragment<FragmentIndexBinding>(R.layout.fra
         val slideShow = mBinding.shIndex
 
         slideShow
-            .setAdapter(requireActivity(), fragments)
             .setTransformer(RotateYTransformer(10F))
             .setOffscreenPageLimit(1)
             .setOpenNestedScroll(true)
+            .setAdapter(requireActivity(), fragments)
 
         TabLayoutMediator(
             tabLayout, slideShow.getViewPager2()
