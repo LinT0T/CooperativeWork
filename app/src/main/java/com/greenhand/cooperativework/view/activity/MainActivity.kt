@@ -28,6 +28,7 @@ class MainActivity : BaseOnlyBindingActivity<ActivityMainBinding>(R.layout.activ
         val slideShow = mBinding.mainSlideShow
         slideShow
             .setOffscreenPageLimit(1)
+            .setOpenNestedScroll(true)
             .setPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     navView.menu.getItem(position).isChecked = true
